@@ -9,6 +9,13 @@
         "project": ["tsconfig.json"],
         "sourceType": "module"
       },
+      "settings": {
+        "import/resolver": {
+          "typescript": {
+            "project": "tsconfig.json"
+          }
+        }
+      },
       "plugins": ["@typescript-eslint", "import", "prettier"],
       "extends": [
         "plugin:@angular-eslint/recommended",
@@ -58,7 +65,7 @@
 
         /* Buenas prácticas */
         "eqeqeq": ["error", "always"],
-        "no-console": ["warn"],
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "no-debugger": "error",
         "curly": ["error", "all"],
         "arrow-body-style": ["error", "as-needed"],
