@@ -1,0 +1,7 @@
+{
+  "name": "NoteFlow",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
