@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="p-4">
+  <!-- STATS -->
+  <div class="grid grid-cols-2 gap-2">
+    <div *ngIf="stats$ | async as stats">
+      <p>Total: {{ stats.total }}</p>
+      <p>Favorites: {{ stats.favorites }}</p>
+    </div>
+  </div>
+
+  <!-- ADD -->
+  <ion-button expand="block" (click)="addNote()"> Add Note </ion-button>
+
+  <!-- LIST -->
+  <app-note-card
+    *ngFor="let note of (notes$ | async)"
+    [note]="note"
+    (delete)="deleteNote($event)"
+    (favorite)="toggleFavorite($event)"
+  ></app-note-card>
+</ion-content>
