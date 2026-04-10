@@ -8,7 +8,7 @@ import type { NoteStats } from '../models/note-stats.model';
 import type { Note } from '../models/note.model';
 
 @Injectable({ providedIn: 'root' })
-export class NoteService {
+export class NotesService {
   private storage = inject(StorageService);
   private notesSubject = new BehaviorSubject<Note[]>([]);
   notes$ = this.notesSubject.asObservable();
