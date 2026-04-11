@@ -1,0 +1,39 @@
+<div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
+  <div class="text-center mb-6">
+    <h1 class="text-2xl font-bold">Create account</h1>
+    <p class="text-sm text-gray-400">Start organizing your ideas</p>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    <input
+      [(ngModel)]="name"
+      placeholder="Name"
+      class="p-3 rounded-xl bg-white/5 border border-white/10"
+    />
+
+    <input
+      [(ngModel)]="email"
+      placeholder="Email"
+      class="p-3 rounded-xl bg-white/5 border border-white/10"
+    />
+
+    <input
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+      class="p-3 rounded-xl bg-white/5 border border-white/10"
+    />
+  </div>
+
+  <button
+    (click)="register()"
+    class="w-full mt-5 py-3 rounded-xl bg-white text-black font-semibold"
+  >
+    Create account
+  </button>
+
+  <p class="text-xs text-center text-gray-400 mt-4">
+    Already have an account?
+    <a routerLink="/auth/login" class="text-white">Login</a>
+  </p>
+</div>

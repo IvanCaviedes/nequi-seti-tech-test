@@ -1,0 +1,25 @@
+<!-- LOADING -->
+<div *ngIf="loading" class="space-y-3">
+  <div class="h-20 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+  <div class="h-20 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+  <div class="h-20 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"></div>
+</div>
+
+<!-- EMPTY STATE -->
+<div
+  *ngIf="!loading && notes.length === 0"
+  class="flex flex-col items-center justify-center py-10 text-center"
+>
+  <p class="text-gray-500">No notes yet</p>
+</div>
+
+<!-- LIST -->
+<div *ngIf="!loading && notes.length > 0" class="space-y-3">
+  <app-note-card
+    *ngFor="let note of notes; trackBy: trackById"
+    [note]="note"
+    (delete)="delete.emit($event)"
+    (favorite)="favorite.emit($event)"
+    (open)="open.emit($event)"
+  />
+</div>
