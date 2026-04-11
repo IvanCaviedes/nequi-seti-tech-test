@@ -1,0 +1,37 @@
+<div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
+  <!-- HEADER -->
+  <div class="text-center mb-6">
+    <h1 class="text-2xl font-bold">Welcome back</h1>
+    <p class="text-sm text-gray-400">Login to continue</p>
+  </div>
+
+  <!-- INPUTS -->
+  <div class="flex flex-col gap-3">
+    <input
+      [(ngModel)]="email"
+      placeholder="Email"
+      class="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+    />
+
+    <input
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+      class="w-full p-3 rounded-xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500"
+    />
+  </div>
+
+  <!-- ACTION -->
+  <button
+    (click)="login()"
+    class="w-full mt-5 py-3 rounded-xl bg-white text-black font-semibold hover:scale-[1.02] transition"
+  >
+    {{ loading ? 'Loading...' : 'Login' }}
+  </button>
+
+  <!-- SWITCH -->
+  <p class="text-xs text-center text-gray-400 mt-4">
+    Don't have an account?
+    <a routerLink="/auth/register" class="text-white">Sign up</a>
+  </p>
+</div>

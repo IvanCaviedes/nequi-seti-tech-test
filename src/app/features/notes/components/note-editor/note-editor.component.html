@@ -1,0 +1,17 @@
+<app-ui-card class="flex flex-col gap-3">
+  <!-- TITLE -->
+  <app-ui-input placeholder="Title" [(value)]="title" />
+
+  <!-- CONTENT -->
+  <app-ui-input placeholder="Write your note..." [(value)]="content" />
+
+  <!-- CATEGORY -->
+  <app-ui-input placeholder="Category" [(value)]="category" />
+
+  <!-- ACTIONS -->
+  <div class="flex justify-end gap-2">
+    <app-ui-button variant="ghost" (click)="cancelled.emit()"> Cancel </app-ui-button>
+
+    <app-ui-button variant="primary" (click)="onSave()"> Save </app-ui-button>
+  </div>
+</app-ui-card>

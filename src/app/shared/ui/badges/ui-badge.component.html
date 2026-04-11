@@ -1,0 +1,25 @@
+<span
+  class="inline-flex items-center font-medium rounded-full transition-all"
+  [ngClass]="[
+    size === 'sm' ? 'text-xs px-2 py-0.5' : '',
+    size === 'md' ? 'text-sm px-3 py-1' : '',
+
+    variant === 'default' ? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-200' : '',
+
+    variant === 'primary' ? 'bg-brand-500 text-white' : '',
+
+    variant === 'secondary'
+      ? 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-200'
+      : '',
+
+    variant === 'success' ? 'bg-green-500 text-white' : '',
+
+    variant === 'warning' ? 'bg-orange-400 text-white' : '',
+
+    variant === 'danger' ? 'bg-red-500 text-white' : '',
+
+    variant === 'ghost' ? 'bg-transparent border border-gray-300 dark:border-gray-600' : '',
+  ]"
+>
+  <ng-content></ng-content>
+</span>
