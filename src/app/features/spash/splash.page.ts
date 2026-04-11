@@ -3,6 +3,8 @@ import type { OnInit } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ROUTES } from 'src/app/core/constants/routes.constant';
+
 @Component({
   selector: 'app-splash',
   templateUrl: './splash.page.html',
@@ -19,7 +21,7 @@ export class SplashPage implements OnInit {
 
     setTimeout(() => {
       //   const hasSession = !!localStorage.getItem('token');
-      //   this.router.navigateByUrl(hasSession ? '/notes' : '/onboarding');
+      void this.router.navigateByUrl(ROUTES.ONBOARDING);
     }, 2600);
   }
 

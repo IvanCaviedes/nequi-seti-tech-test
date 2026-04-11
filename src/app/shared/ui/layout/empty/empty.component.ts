@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-auth-shell',
-  templateUrl: './auth-shell.page.html',
+  selector: 'app-empty-layout',
+  templateUrl: './empty.component.html',
   imports: [CommonModule, RouterOutlet],
 })
-export class AuthShellPage {}
+export class EmptyLayoutComponent {}
