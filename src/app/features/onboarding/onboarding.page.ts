@@ -13,7 +13,11 @@ export class OnboardingPage implements OnInit, OnDestroy {
   private router = inject(Router);
 
   step = 0;
-  private interval?: number | null;
+
+  interval?: number | null;
+  progressInterval?: number | null;
+
+  progress = 0; // autoplay progress (0-100)
 
   slides = [
     {
@@ -42,14 +46,21 @@ export class OnboardingPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.clearAutoPlay();
+    this.clearProgress();
   }
+
+  // =========================
+  // AUTO PLAY
+  // =========================
 
   private startAutoPlay() {
     this.clearAutoPlay();
+    this.startProgress();
 
-    this.interval = setInterval(() => {
+    this.interval = window.setInterval(() => {
       this.next(true);
-    }, 3500); // ⏱ cada 3.5s
+      this.startProgress();
+    }, 3500);
   }
 
   private clearAutoPlay() {
@@ -62,6 +73,37 @@ export class OnboardingPage implements OnInit, OnDestroy {
   private resetAutoPlay() {
     this.startAutoPlay();
   }
+
+  // =========================
+  // PROGRESS (SLIDE TIMER)
+  // =========================
+
+  private startProgress() {
+    this.clearProgress();
+
+    const duration = 3500;
+    const start = Date.now();
+
+    this.progressInterval = window.setInterval(() => {
+      const elapsed = Date.now() - start;
+      this.progress = Math.min((elapsed / duration) * 100, 100);
+
+      if (this.progress >= 100) {
+        this.progress = 0;
+      }
+    }, 30);
+  }
+
+  private clearProgress() {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+      this.progressInterval = null;
+    }
+  }
+
+  // =========================
+  // NAVIGATION
+  // =========================
 
   next(fromAuto = false) {
     if (this.step < this.slides.length - 1) {
@@ -85,7 +127,17 @@ export class OnboardingPage implements OnInit, OnDestroy {
 
   finish() {
     this.clearAutoPlay();
+    this.clearProgress();
+
     // localStorage.setItem('onboarding_done', 'true');
-    // this.router.navigateByUrl('/auth/login');
+    void this.router.navigateByUrl('/auth/login');
+  }
+
+  // =========================
+  // TOTAL PROGRESS
+  // =========================
+
+  get totalProgress() {
+    return ((this.step + 1) / this.slides.length) * 100;
   }
 }

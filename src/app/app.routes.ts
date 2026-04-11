@@ -1,38 +1,45 @@
-import type { Routes } from '@angular/router';
+import { type Routes } from '@angular/router';
 
-import { AuthShellPage } from './features/auth/pages/auth-shell/auth-shell.page';
+import { ROUTES } from './core/constants/routes.constant';
+import { EmptyLayoutComponent } from './shared/ui/layout/empty/empty.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/register',
+    redirectTo: ROUTES.SPLASH,
     pathMatch: 'full',
   },
   {
-    path: 'splash',
-    loadComponent: () => import('./features/spash/splash.page').then((m) => m.SplashPage),
+    path: '',
+    component: EmptyLayoutComponent,
+    children: [
+      {
+        path: ROUTES.SPLASH,
+        loadComponent: () => import('./features/spash/splash.page').then((m) => m.SplashPage),
+      },
+      {
+        path: ROUTES.ONBOARDING,
+        loadComponent: () =>
+          import('./features/onboarding/onboarding.page').then((m) => m.OnboardingPage),
+      },
+    ],
   },
   {
-    path: 'onboarding',
-    loadComponent: () =>
-      import('./features/onboarding/onboarding.page').then((m) => m.OnboardingPage),
-  },
-  {
-    path: 'auth',
-    component: AuthShellPage,
+    path: ROUTES.AUTH.ROOT,
+    component: EmptyLayoutComponent,
     children: [
       {
         path: '',
-        redirectTo: 'login',
+        redirectTo: ROUTES.AUTH.LOGIN,
         pathMatch: 'full',
       },
       {
-        path: 'login',
+        path: ROUTES.AUTH.LOGIN,
         loadComponent: () =>
           import('./features/auth/pages/login/login.page').then((m) => m.LoginPage),
       },
       {
-        path: 'register',
+        path: ROUTES.AUTH.REGISTER,
         loadComponent: () =>
           import('./features/auth/pages/register/register.page').then((m) => m.RegisterPage),
       },
