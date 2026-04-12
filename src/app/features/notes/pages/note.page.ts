@@ -1,13 +1,44 @@
+import { CommonModule } from '@angular/common';
+import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-
-import { NotesDashboardComponent } from '../components/notes-dashboard/notes-dashboard.component';
+import {
+  IonContent,
+  IonButton,
+  IonIcon,
+  IonCheckbox,
+  IonItemSliding,
+  IonItemOption,
+  IonItem,
+  IonItemOptions,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import {
+  addCircleOutline,
+  documentTextOutline,
+  fitnessOutline,
+  flagOutline,
+  menuOutline,
+  pricetagOutline,
+  timeOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-note',
   templateUrl: 'note.page.html',
-  imports: [NotesDashboardComponent],
+  imports: [IonItemOptions, IonItem, IonItemOption, IonItemSliding, IonContent, CommonModule],
 })
-export class NotePage {
+export class NotePage implements OnInit {
+  ngOnInit() {
+    addIcons({
+      'menu-outline': menuOutline,
+      'time-outline': timeOutline,
+      'pricetag-outline': pricetagOutline,
+      'fitness-outline': fitnessOutline,
+      'add-circle-outline': addCircleOutline,
+      'flag-outline': flagOutline,
+      'document-text-outline': documentTextOutline,
+    });
+  }
   // private facade = inject(NotesFecade);
   // notes$ = this.facade.$notes;
   // categories$ = this.facade.$categories;

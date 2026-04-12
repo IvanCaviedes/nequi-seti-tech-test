@@ -112,6 +112,6 @@ export class SplashFacade {
       return '/auth/login';
     }
 
-    return '/home';
+    return '/notes';
   }
 }

@@ -84,7 +84,7 @@ export class AuthFacade {
             user: res.user,
           });
 
-          void this.router.navigateByUrl('/home');
+          void this.router.navigateByUrl('/notes');
         },
         error: (err: unknown) => {
           const errorMessage = err instanceof Error ? err.message : 'Login failed';
@@ -114,7 +114,7 @@ export class AuthFacade {
             user: res.user,
           });
 
-          void this.router.navigateByUrl('/home');
+          void this.router.navigateByUrl('/notes');
         },
         error: (err: unknown) => {
           const errorMessage = err instanceof Error ? err.message : 'Register failed';
