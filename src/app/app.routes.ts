@@ -15,12 +15,12 @@ export const routes: Routes = [
     children: [
       {
         path: ROUTES.SPLASH,
-        loadComponent: () => import('./features/spash/splash.page').then((m) => m.SplashPage),
+        loadComponent: () => import('./features/spash/pages/splash.page').then((m) => m.SplashPage),
       },
       {
         path: ROUTES.ONBOARDING,
         loadComponent: () =>
-          import('./features/onboarding/onboarding.page').then((m) => m.OnboardingPage),
+          import('./features/onboarding/pages/onboarding.page').then((m) => m.OnboardingPage),
       },
     ],
   },
