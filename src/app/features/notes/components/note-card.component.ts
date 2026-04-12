@@ -4,7 +4,7 @@ import type { Note } from '../models/note.model';
 
 @Component({
   selector: 'app-note-card',
-  templateUrl: './note.page.html',
+  templateUrl: './note-card.component.html',
 })
 export class NoteCardComponent {
   @Input() note!: Note;

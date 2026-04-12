@@ -1,60 +1,28 @@
 import { CommonModule } from '@angular/common';
-import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import {
-  IonContent,
-  IonItemSliding,
-  IonItemOption,
-  IonItem,
-  IonItemOptions,
-} from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import {
-  addCircleOutline,
-  documentTextOutline,
-  fitnessOutline,
-  flagOutline,
-  menuOutline,
-  pricetagOutline,
-  timeOutline,
-} from 'ionicons/icons';
+import { Component, inject } from '@angular/core';
+import { IonContent } from '@ionic/angular/standalone';
+
+import { ButtonLogoutComponent } from '../../auth/components/button-logout/button-logout.component';
+import { NoteFilterComponent } from '../components/note-filters/note-filters.component';
+import { NoteListComponent } from '../components/note-list/note-list.component';
+import { StatsComponent } from '../components/stats/stats.component';
+import { TopBarComponent } from '../components/topbar/topbar.component';
+import { NotesFecade } from '../fecade/notes.fecade';
 
 @Component({
   selector: 'app-note',
   templateUrl: 'note.page.html',
-  imports: [IonItemOptions, IonItem, IonItemOption, IonItemSliding, IonContent, CommonModule],
+  imports: [
+    IonContent,
+    CommonModule,
+    ButtonLogoutComponent,
+    TopBarComponent,
+    StatsComponent,
+    NoteListComponent,
+    NoteFilterComponent,
+  ],
 })
-export class NotePage implements OnInit {
-  ngOnInit() {
-    addIcons({
-      'menu-outline': menuOutline,
-      'time-outline': timeOutline,
-      'pricetag-outline': pricetagOutline,
-      'fitness-outline': fitnessOutline,
-      'add-circle-outline': addCircleOutline,
-      'flag-outline': flagOutline,
-      'document-text-outline': documentTextOutline,
-    });
-  }
-  // private facade = inject(NotesFecade);
-  // notes$ = this.facade.$notes;
-  // categories$ = this.facade.$categories;
-  // stats$ = this.facade.$stats;
-  // addNote(): void {
-  //   this.facade.addNote({
-  //     title: 'New Note',
-  //     content: 'This is a new note.',
-  //     status: 'active',
-  //     isFavorite: false,
-  //   });
-  // }
-  // toggleFavorite(id: string): void {
-  //   this.facade.toggleFavorite(id);
-  // }
-  // deleteNote(id: string): void {
-  //   this.facade.deleteNote(id);
-  // }
-  // trackById(index: number, item: Note) {
-  //   return item.id;
-  // }
+export class NotePage {
+  private facade = inject(NotesFecade);
+  notes$ = this.facade.$notes;
 }

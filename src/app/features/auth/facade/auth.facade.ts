@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
 
+import { ROUTES } from 'src/app/core/constants/routes.constant';
 import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
 
 import { AuthService } from '../services/auth.service';
@@ -79,36 +80,6 @@ export class AuthFacade {
       .subscribe({
         next: (res) => {
           this.setToken(res.token, remember);
-
-          this.patch({
-            user: res.user,
-          });
-
-          void this.router.navigateByUrl('/notes');
-        },
-        error: (err: unknown) => {
-          const errorMessage = err instanceof Error ? err.message : 'Login failed';
-          this.patch({
-            error: errorMessage,
-          });
-        },
-      });
-  }
-
-  // =========================
-  // REGISTER
-  // =========================
-
-  register(email: string, password: string) {
-    this.patch({ loading: true, error: null });
-
-    this.authService
-      .register(email, password)
-      .pipe(finalize(() => this.patch({ loading: false })))
-      .subscribe({
-        next: (res) => {
-          // 🔥 auto-login
-          this.setToken(res.token, true);
 
           this.patch({
             user: res.user,

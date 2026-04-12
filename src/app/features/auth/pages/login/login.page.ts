@@ -13,8 +13,6 @@ import {
   IonIcon,
   IonRouterLink,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
 
@@ -66,11 +64,6 @@ export class LoginPage implements OnInit {
   };
 
   ngOnInit() {
-    addIcons({
-      'eye-outline': eyeOutline,
-      'eye-off-outline': eyeOffOutline,
-    });
-
     this.restoreRememberedEmail();
   }
 
