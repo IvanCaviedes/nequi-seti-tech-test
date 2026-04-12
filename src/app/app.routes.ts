@@ -3,6 +3,7 @@ import { type Routes } from '@angular/router';
 import { ROUTES } from './core/constants/routes.constant';
 import { guestGuard } from './features/auth/guards/auth.guard';
 import { authGuard } from './features/auth/guards/guest.guard';
+import { DashboardLayoutComponent } from './shared/ui/layout/dashboard/dashboard.component';
 import { EmptyLayoutComponent } from './shared/ui/layout/empty/empty.component';
 
 export const routes: Routes = [
@@ -49,8 +50,14 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'notes',
-    loadComponent: () => import('./features/notes/pages/note.page').then((m) => m.NotePage),
+    path: 'app',
+    component: DashboardLayoutComponent,
     canActivate: [authGuard],
+    children: [
+      {
+        path: ROUTES.APP.ROOT,
+        loadComponent: () => import('./features/notes/pages/note.page').then((m) => m.NotePage),
+      },
+    ],
   },
 ];

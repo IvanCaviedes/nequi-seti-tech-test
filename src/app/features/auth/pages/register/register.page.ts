@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { CommonModule } from '@angular/common';
-import type { OnInit } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import type { AbstractControl, ValidationErrors } from '@angular/forms';
 import {
@@ -18,8 +17,6 @@ import {
   IonIcon,
   IonCheckbox,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { eyeOffOutline, eyeOutline } from 'ionicons/icons';
 
 import { AuthFacade } from '../../facade/auth.facade';
 
@@ -47,7 +44,7 @@ type RegisterForm = {
     IonCheckbox,
   ],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
   private fb = inject(NonNullableFormBuilder);
   private auth = inject(AuthFacade);
 
@@ -88,13 +85,6 @@ export class RegisterPage implements OnInit {
     requiredTrue: 'You must accept terms',
     passwordMismatch: 'Passwords do not match',
   };
-
-  ngOnInit() {
-    addIcons({
-      'eye-outline': eyeOutline,
-      'eye-off-outline': eyeOffOutline,
-    });
-  }
 
   // =========================
   // UX

@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
 
+import { ROUTES } from 'src/app/core/constants/routes.constant';
 import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
 
 import { AuthService } from '../services/auth.service';
@@ -84,7 +85,7 @@ export class AuthFacade {
             user: res.user,
           });
 
-          void this.router.navigateByUrl('/notes');
+          void this.router.navigateByUrl('/app/' + ROUTES.APP.ROOT);
         },
         error: (err: unknown) => {
           const errorMessage = err instanceof Error ? err.message : 'Login failed';
@@ -114,7 +115,7 @@ export class AuthFacade {
             user: res.user,
           });
 
-          void this.router.navigateByUrl('/notes');
+          void this.router.navigateByUrl('/app/' + ROUTES.APP.ROOT);
         },
         error: (err: unknown) => {
           const errorMessage = err instanceof Error ? err.message : 'Register failed';

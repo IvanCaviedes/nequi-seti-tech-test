@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, interval, timer } from 'rxjs';
 import { map, takeUntil, takeWhile } from 'rxjs/operators';
 
+import { ROUTES } from 'src/app/core/constants/routes.constant';
 import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
 import { StorageService } from 'src/app/core/services/storage.service';
 
@@ -87,7 +88,7 @@ export class SplashFacade {
         timer(400)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
-            void this.router.navigateByUrl(nextRoute);
+            void this.router.navigateByUrl(nextRoute, { replaceUrl: true });
           });
       });
   }
@@ -112,6 +113,6 @@ export class SplashFacade {
       return '/auth/login';
     }
 
-    return '/notes';
+    return '/app/' + ROUTES.APP.ROOT;
   }
 }

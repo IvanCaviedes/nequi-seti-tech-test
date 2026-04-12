@@ -10,6 +10,6 @@ export const ROUTES = {
   },
 
   APP: {
-    ROOT: 'notes',
+    ROOT: 'dashboard',
   },
 } as const;

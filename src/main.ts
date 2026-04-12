@@ -9,9 +9,11 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
+import { registerIcons } from './app/core/icons/icon.registry';
 import { LoggerService } from './app/core/services/logger.service';
 
 const logger = new LoggerService();
+registerIcons();
 
 bootstrapApplication(AppComponent, {
   providers: [
