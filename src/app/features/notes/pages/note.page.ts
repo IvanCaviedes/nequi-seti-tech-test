@@ -3,9 +3,6 @@ import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import {
   IonContent,
-  IonButton,
-  IonIcon,
-  IonCheckbox,
   IonItemSliding,
   IonItemOption,
   IonItem,
