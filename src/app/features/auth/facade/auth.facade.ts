@@ -2,6 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, finalize } from 'rxjs';
 
+import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
+
 import { AuthService } from '../services/auth.service';
 
 type AuthState = {
@@ -42,9 +44,9 @@ export class AuthFacade {
 
   private setToken(token: string, remember: boolean) {
     if (remember) {
-      localStorage.setItem('token', token);
+      localStorage.setItem(STORAGE_KEYS.AUTH, token);
     } else {
-      sessionStorage.setItem('token', token);
+      sessionStorage.setItem(STORAGE_KEYS.AUTH, token);
     }
   }
 

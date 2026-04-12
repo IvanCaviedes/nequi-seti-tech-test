@@ -153,19 +153,13 @@ export class RegisterPage implements OnInit {
   // =========================
 
   submit = () => {
-    console.log('submit');
-
     this.submitted = true;
 
     if (this.form.invalid) {
-      console.log('llega');
-
       return;
     }
 
     const { email, password } = this.form.getRawValue();
-
-    console.log('llega');
 
     this.auth.register(email, password);
   };
