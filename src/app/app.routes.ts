@@ -1,6 +1,8 @@
 import { type Routes } from '@angular/router';
 
 import { ROUTES } from './core/constants/routes.constant';
+import { guestGuard } from './features/auth/guards/auth.guard';
+import { authGuard } from './features/auth/guards/guest.guard';
 import { EmptyLayoutComponent } from './shared/ui/layout/empty/empty.component';
 
 export const routes: Routes = [
@@ -27,6 +29,7 @@ export const routes: Routes = [
   {
     path: ROUTES.AUTH.ROOT,
     component: EmptyLayoutComponent,
+    canActivate: [guestGuard],
     children: [
       {
         path: '',
@@ -48,5 +51,6 @@ export const routes: Routes = [
   {
     path: 'notes',
     loadComponent: () => import('./features/notes/pages/note.page').then((m) => m.NotePage),
+    canActivate: [authGuard],
   },
 ];

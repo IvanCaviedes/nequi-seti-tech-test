@@ -6,6 +6,7 @@ import { map, takeUntil, takeWhile } from 'rxjs/operators';
 import { STORAGE_KEYS } from 'src/app/core/constants/storage-keys';
 import { StorageService } from 'src/app/core/services/storage.service';
 
+import { AuthFacade } from '../../auth/facade/auth.facade';
 import type { SplashState } from '../models/splash.model';
 
 @Injectable({ providedIn: 'root' })
@@ -13,6 +14,7 @@ export class SplashFacade {
   private destroy$ = new Subject<void>();
   private router = inject(Router);
   private storage = inject(StorageService);
+  private auth = inject(AuthFacade);
 
   private stateSubject = new BehaviorSubject<SplashState>({
     loading: 0,
@@ -106,7 +108,7 @@ export class SplashFacade {
       return '/onboarding';
     }
 
-    if (!this.storage.get(STORAGE_KEYS.AUTH)) {
+    if (!this.auth.isAuthenticated()) {
       return '/auth/login';
     }
 
