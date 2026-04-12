@@ -1,1 +1,215 @@
-<app-notes-dashboard />
+<ion-content fullscreen="true" class="ion-no-padding bg-[#070A12] text-white">
+  <!-- 🌌 FIXED BACKGROUND (NO SE ROMPE NUNCA) -->
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <!-- GRID -->
+    <div
+      class="absolute inset-0 opacity-[0.07]"
+      style="
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 60px 60px;
+      "
+    ></div>
+
+    <!-- GLOW TOP LEFT -->
+    <div
+      class="absolute w-[700px] h-[500px] bg-purple-600 blur-[180px] opacity-20 top-[-200px] left-[-200px]"
+    ></div>
+
+    <!-- GLOW BOTTOM RIGHT -->
+    <div
+      class="absolute w-[700px] h-[500px] bg-cyan-500 blur-[200px] opacity-20 bottom-[-250px] right-[-200px]"
+    ></div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- APP WRAPPER -->
+  <!-- ========================= -->
+  <div class="relative z-10 min-h-screen flex">
+    <!-- ========================= -->
+    <!-- SIDEBAR (WEB ONLY) -->
+    <!-- ========================= -->
+    <aside
+      class="hidden md:flex w-72 flex-col p-5 gap-6 bg-white/5 backdrop-blur-2xl border-r border-white/10 relative z-20"
+    >
+      <div class="text-xl font-bold">⚡ Nova App</div>
+
+      <!-- SEARCH -->
+      <div
+        class="flex items-center justify-between px-3 py-2 rounded-xl bg-white/5 border border-white/10"
+      >
+        <span class="text-sm text-white/50">Search...</span>
+        <span class="text-xs text-white/30">⌘K</span>
+      </div>
+
+      <!-- NAV -->
+      <nav class="flex flex-col gap-2 text-sm text-white/70">
+        <div class="px-3 py-2 rounded-xl hover:bg-white/10 cursor-pointer">📊 Dashboard</div>
+        <div class="px-3 py-2 rounded-xl hover:bg-white/10 cursor-pointer">📅 Today</div>
+        <div class="px-3 py-2 rounded-xl hover:bg-white/10 cursor-pointer">📁 Projects</div>
+        <div class="px-3 py-2 rounded-xl hover:bg-white/10 cursor-pointer">⚙️ Settings</div>
+      </nav>
+
+      <!-- LOGOUT (WEB) -->
+      <div class="mt-auto border-t border-white/10 pt-4">
+        <button
+          class="w-full text-left px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 transition"
+        >
+          🚪 Cerrar sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- ========================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ========================= -->
+    <div class="flex-1 flex flex-col relative z-10">
+      <!-- TOPBAR -->
+      <div class="p-5 md:p-8">
+        <div
+          class="flex items-center justify-between bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-5 py-4"
+        >
+          <div>
+            <div class="text-sm text-white/50">Good morning</div>
+            <div class="text-xl font-semibold">Today Dashboard</div>
+          </div>
+
+          <button
+            class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-black font-semibold hover:scale-[1.03] transition"
+          >
+            + New Task
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="flex-1 px-5 md:px-8 pb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- ========================= -->
+        <!-- CENTER -->
+        <!-- ========================= -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+          <!-- STATS -->
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4">
+              <div class="text-xs text-white/50">Tasks</div>
+              <div class="text-2xl font-bold">0</div>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4">
+              <div class="text-xs text-white/50">Done</div>
+              <div class="text-2xl font-bold">0</div>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4">
+              <div class="text-xs text-white/50">Focus</div>
+              <div class="text-2xl font-bold">0%</div>
+            </div>
+          </div>
+
+          <!-- TASKS -->
+          <div class="flex flex-col gap-3">
+            <ion-item-sliding *ngFor="let t of [1,2,3,4,5,6]">
+              <ion-item-options side="end">
+                <ion-item-option color="primary">Edit</ion-item-option>
+                <ion-item-option color="danger">Delete</ion-item-option>
+              </ion-item-options>
+
+              <ion-item
+                lines="none"
+                class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl hover:bg-white/10 transition"
+                style="--background: transparent"
+              >
+                <div class="flex justify-between w-full items-center p-2">
+                  <!-- LEFT -->
+                  <div class="flex flex-col gap-1">
+                    <div class="font-semibold group-hover:translate-x-1 transition">
+                      📌 Task title
+                    </div>
+
+                    <div class="text-xs text-white/50">6:00 - 7:30 • Focus session</div>
+
+                    <div class="flex gap-2 mt-1">
+                      <span class="text-[10px] bg-white/10 px-2 py-1 rounded-full">Study</span>
+                      <span class="text-[10px] bg-white/10 px-2 py-1 rounded-full">Gym</span>
+                    </div>
+                  </div>
+
+                  <!-- CHECK -->
+                  <div
+                    class="w-6 h-6 rounded-lg border border-white/20 flex items-center justify-center"
+                  >
+                    ✔
+                  </div>
+                </div>
+              </ion-item>
+            </ion-item-sliding>
+          </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- RIGHT PANEL -->
+        <!-- ========================= -->
+        <div class="flex flex-col gap-6">
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
+            <div class="font-semibold mb-2">Insights</div>
+            <p class="text-xs text-white/50">Productivity peaks in mornings</p>
+
+            <div class="h-2 bg-white/10 rounded-full mt-3 overflow-hidden">
+              <div class="h-full w-[70%] bg-gradient-to-r from-purple-500 to-cyan-500"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
+            <div class="font-semibold mb-3">Calendar</div>
+
+            <div class="grid grid-cols-7 text-center text-xs text-white/50 gap-2">
+              <div>Mo</div>
+              <div>Tu</div>
+              <div>We</div>
+              <div>Th</div>
+              <div>Fr</div>
+              <div>Sa</div>
+              <div>Su</div>
+            </div>
+
+            <div class="grid grid-cols-7 gap-2 mt-3 text-center text-sm">
+              <div class="p-2 rounded-lg bg-white/10">14</div>
+              <div>15</div>
+              <div>16</div>
+              <div>17</div>
+              <div>18</div>
+              <div>19</div>
+              <div>20</div>
+            </div>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
+            <div class="font-semibold mb-3">Quick Actions</div>
+
+            <div class="flex flex-col gap-2 text-sm text-white/70">
+              <div>➕ Create task</div>
+              <div>⚡ Focus mode</div>
+              <div>📊 Analytics</div>
+            </div>
+          </div>
+
+          <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
+            <div class="font-semibold mb-3">Activity</div>
+
+            <div class="flex flex-col gap-3 text-xs text-white/50">
+              <div>• Task created</div>
+              <div>• Focus mode enabled</div>
+              <div>• Project updated</div>
+            </div>
+          </div>
+
+          <!-- MOBILE LOGOUT (VISIBLE SOLO MOBILE) -->
+          <div class="md:hidden bg-white/5 border border-white/10 rounded-2xl p-4">
+            <button class="w-full text-red-300">🚪 Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
