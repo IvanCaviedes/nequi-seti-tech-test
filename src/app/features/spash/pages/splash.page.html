@@ -1,0 +1,37 @@
+<ion-content class="ion-no-padding" fullscreen="true">
+  <ng-container *ngIf="state$ | async as state">
+    <div class="min-h-screen w-full flex items-center justify-center bg-black text-white">
+      <!-- CARD -->
+      <div class="relative z-10 w-full max-w-md px-6">
+        <app-card>
+          <!-- LOGO -->
+          <div
+            class="w-24 h-24 rounded-3xl flex items-center justify-center text-3xl bg-white/10 border border-white/20 shadow-lg"
+          >
+            📝
+          </div>
+
+          <!-- TITLE -->
+          <div class="text-center">
+            <h1 class="text-2xl font-bold tracking-tight">My Notes</h1>
+            <p class="text-xs text-white/50 mt-1">v1.0.0 • personal workspace</p>
+          </div>
+
+          <!-- SUBTITLE -->
+          <p class="text-sm text-white/60 text-center">Organizing your ideas{{ state.dots }}</p>
+
+          <!-- LOADER -->
+          <div class="flex gap-1 mt-2">
+            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+            <span
+              class="w-1.5 h-1.5 bg-white/70 rounded-full animate-pulse [animation-delay:150ms]"
+            ></span>
+            <span
+              class="w-1.5 h-1.5 bg-white/40 rounded-full animate-pulse [animation-delay:300ms]"
+            ></span>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>

@@ -1,53 +1,174 @@
-<div class="flex flex-col items-center mb-10 text-center">
-  <div
-    class="w-24 h-24 bg-zinc-900 rounded-3xl flex items-center justify-center shadow-xl border border-zinc-800 mb-5"
-  >
-    <span class="text-6xl p-0 m-0 leading-none antialiased"> 📝 </span>
+<ion-content class="ion-no-padding" fullscreen="true">
+  <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white">
+    <div class="flex flex-col items-center mb-10 text-center">
+      <div
+        class="w-24 h-24 bg-zinc-900 rounded-3xl flex items-center justify-center shadow-xl border border-zinc-800 mb-5"
+      >
+        <span class="text-6xl p-0 m-0 leading-none antialiased"> 📝 </span>
+      </div>
+
+      <h1
+        class="text-3xl font-extrabold tracking-tighter bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent"
+      >
+        NotePad Pro
+      </h1>
+      <p class="text-zinc-500 mt-1">Tus ideas, organizadas.</p>
+    </div>
+
+    <div class="w-full max-w-md px-6">
+      <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
+        <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold">Create account</h1>
+          <p class="text-sm text-gray-400">Start organizing your ideas</p>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            class="flex flex-col gap-3"
+            *ngIf="state$ | async as state"
+          >
+            <div class="space-y-1">
+              <ion-item
+                lines="none"
+                class="rounded-xl border flex items-center"
+                [ngClass]="{
+          'border-red-500 bg-red-500/5': getControlState('name').invalid,
+          'border-white/10 bg-white/5': !getControlState('name').invalid
+        }"
+              >
+                <ion-input
+                  formControlName="name"
+                  placeholder="Name"
+                  autocomplete="name"
+                ></ion-input>
+              </ion-item>
+
+              <p *ngIf="getError('name')" class="text-[11px] text-red-400 px-1">
+                {{ getError('name') }}
+              </p>
+            </div>
+
+            <div class="space-y-1">
+              <ion-item
+                lines="none"
+                class="rounded-xl border flex items-center"
+                [ngClass]="{
+          'border-red-500 bg-red-500/5': getControlState('email').invalid,
+          'border-white/10 bg-white/5': !getControlState('email').invalid
+        }"
+              >
+                <ion-input
+                  formControlName="email"
+                  type="email"
+                  placeholder="Email"
+                  autocomplete="email"
+                ></ion-input>
+              </ion-item>
+
+              <p *ngIf="getError('email')" class="text-[11px] text-red-400 px-1">
+                {{ getError('email') }}
+              </p>
+            </div>
+            <div class="space-y-1">
+              <ion-item
+                lines="none"
+                class="rounded-xl border flex items-center"
+                [ngClass]="{
+      'border-red-500 bg-red-500/5': getControlState('password').invalid,
+      'border-white/10 bg-white/5': !getControlState('password').invalid
+    }"
+              >
+                <ion-input
+                  formControlName="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                ></ion-input>
+
+                <ion-button fill="clear" slot="end" class="h-full" (click)="togglePassword()">
+                  <ion-icon
+                    [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+                    class="text-white/60"
+                  ></ion-icon>
+                </ion-button>
+              </ion-item>
+              <p *ngIf="getError('password')" class="text-[11px] text-red-400 px-1">
+                {{ getError('password') }}
+              </p>
+            </div>
+            <div class="space-y-1">
+              <ion-item
+                lines="none"
+                class="rounded-xl border flex items-center"
+                [ngClass]="{
+      'border-red-500 bg-red-500/5':
+        getControlState('confirmPassword').invalid || getFormError(),
+      'border-white/10 bg-white/5':
+        !getControlState('confirmPassword').invalid
+    }"
+              >
+                <ion-input
+                  formControlName="confirmPassword"
+                  [type]="showConfirmPassword ? 'text' : 'password'"
+                  placeholder="Confirm password"
+                  autocomplete="new-password"
+                ></ion-input>
+
+                <ion-button
+                  fill="clear"
+                  slot="end"
+                  class="h-full"
+                  (click)="toggleConfirmPassword()"
+                >
+                  <ion-icon
+                    [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'"
+                    class="text-white/60"
+                  ></ion-icon>
+                </ion-button>
+              </ion-item>
+
+              <p *ngIf="getFormError()" class="text-[11px] text-red-400 px-1">
+                {{ getFormError() }}
+              </p>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex items-center justify-between mt-2 px-1">
+                <!-- LEFT -->
+                <div
+                  class="flex items-center gap-2 cursor-pointer select-none"
+                  (click)="toggleTerms()"
+                >
+                  <ion-checkbox
+                    formControlName="acceptTerms"
+                    (click)="$event.stopPropagation()"
+                  ></ion-checkbox>
+
+                  <span class="text-sm text-white/70"> Accept terms & conditions </span>
+                </div>
+
+                <!-- OPTIONAL LINK -->
+                <span class="text-xs text-white/40 cursor-pointer"> Terms </span>
+              </div>
+
+              <!-- ERROR -->
+              <p *ngIf="getError('acceptTerms')" class="text-[11px] text-red-400 px-1">
+                {{ getError('acceptTerms') }}
+              </p>
+            </div>
+            <ion-button type="submit" expand="block" class="mt-5" [disabled]="state.loading">
+              Create account
+            </ion-button>
+          </form>
+        </div>
+
+        <p class="text-xs text-center text-gray-400 mt-4">
+          Already have an account?
+          <ion-router-link routerLink="/auth/login" class="text-white"> Sign in </ion-router-link>
+        </p>
+      </div>
+    </div>
   </div>
-
-  <h1
-    class="text-3xl font-extrabold tracking-tighter bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent"
-  >
-    NotePad Pro
-  </h1>
-  <p class="text-zinc-500 mt-1">Tus ideas, organizadas.</p>
-</div>
-<div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
-  <div class="text-center mb-6">
-    <h1 class="text-2xl font-bold">Create account</h1>
-    <p class="text-sm text-gray-400">Start organizing your ideas</p>
-  </div>
-
-  <div class="flex flex-col gap-3">
-    <input
-      [(ngModel)]="name"
-      placeholder="Name"
-      class="p-3 rounded-xl bg-white/5 border border-white/10"
-    />
-
-    <input
-      [(ngModel)]="email"
-      placeholder="Email"
-      class="p-3 rounded-xl bg-white/5 border border-white/10"
-    />
-
-    <input
-      [(ngModel)]="password"
-      type="password"
-      placeholder="Password"
-      class="p-3 rounded-xl bg-white/5 border border-white/10"
-    />
-  </div>
-
-  <button
-    (click)="register()"
-    class="w-full mt-5 py-3 rounded-xl bg-white text-black font-semibold"
-  >
-    Create account
-  </button>
-
-  <p class="text-xs text-center text-gray-400 mt-4">
-    Already have an account?
-    <a routerLink="/auth/login" class="text-white">Login</a>
-  </p>
-</div>
+</ion-content>
