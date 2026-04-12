@@ -1,0 +1,24 @@
+<div class="p-5 md:p-8">
+  <div
+    class="flex items-center justify-between bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-5 py-4"
+  >
+    <div class="flex flex-col">
+      <div
+        class="text-sm text-white/60 transition-all duration-300"
+        [ngClass]="
+          animating ? 'opacity-0 translate-y-1 blur-sm' : 'opacity-100 translate-y-0 blur-0'
+        "
+      >
+        {{ text$ | async }}
+      </div>
+
+      <div class="text-xl font-semibold">Today Dashboard</div>
+    </div>
+
+    <button
+      class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-black font-semibold hover:scale-[1.03] transition"
+    >
+      + New Task
+    </button>
+  </div>
+</div>

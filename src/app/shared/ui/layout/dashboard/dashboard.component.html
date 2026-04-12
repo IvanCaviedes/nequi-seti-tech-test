@@ -1,0 +1,17 @@
+<div class="relative min-h-screen text-white overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none z-20">
+    <div
+      class="absolute w-[500px] h-[300px] bg-brand-600 blur-[100px] opacity-15 top-[-100px] left-[-200px]"
+    ></div>
+
+    <div
+      class="absolute w-[500px] h-[300px] bg-brand-400 blur-[120px] opacity-20 bottom-[-120px] right-[-300px]"
+    ></div>
+  </div>
+  <div class="relative z-10 min-h-screen flex">
+    <app-sidebar />
+    <main class="flex-1 min-h-screen overflow-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

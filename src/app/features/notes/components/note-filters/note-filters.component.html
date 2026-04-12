@@ -1,0 +1,89 @@
+<div class="flex flex-col gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+  <!-- HEADER -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-sm font-semibold text-white">Filters</h2>
+      <p class="text-xs text-white/40">Refine your notes</p>
+    </div>
+
+    <span class="text-[10px] px-2 py-1 rounded-full bg-white/10 text-white/50"> Advanced </span>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="relative">
+    <ion-icon
+      name="search-outline"
+      class="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 text-sm"
+    ></ion-icon>
+
+    <input
+      placeholder="Search notes..."
+      class="w-full pl-9 pr-3 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white outline-none focus:border-white/30 focus:bg-white/10 transition"
+    />
+  </div>
+
+  <!-- STATUS FILTERS -->
+  <div class="grid grid-cols-3 gap-2">
+    <button
+      class="px-3 py-2 rounded-xl text-xs border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+    >
+      All
+    </button>
+
+    <button
+      class="px-3 py-2 rounded-xl text-xs border bg-green-500/10 border-green-400/20 text-green-300 hover:bg-green-500/20 transition"
+    >
+      Active
+    </button>
+
+    <button
+      class="px-3 py-2 rounded-xl text-xs border bg-gray-500/10 border-gray-400/20 text-gray-300 hover:bg-gray-500/20 transition"
+    >
+      Archived
+    </button>
+  </div>
+
+  <!-- QUICK TOGGLES -->
+  <div class="flex items-center gap-2">
+    <button
+      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+    >
+      <ion-icon name="star-outline" class="text-sm"></ion-icon>
+      Favorites
+    </button>
+
+    <button
+      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+    >
+      <ion-icon name="pricetags-outline" class="text-sm"></ion-icon>
+      Tags
+    </button>
+  </div>
+
+  <!-- TAGS -->
+  <div class="flex flex-wrap gap-2">
+    <span
+      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
+    >
+      Work
+    </span>
+
+    <span
+      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
+    >
+      Study
+    </span>
+
+    <span
+      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
+    >
+      Gym
+    </span>
+
+    <span
+      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
+    >
+      Personal
+    </span>
+  </div>
+</div>
