@@ -1,0 +1,130 @@
+<ng-container *ngIf="notes.length > 0; else emptyState">
+  <div class="flex flex-col gap-3">
+    <div
+      *ngFor="let note of notes"
+      class="relative group rounded-2xl border backdrop-blur-xl transition overflow-hidden"
+      [ngClass]="{
+        'bg-white/5 border-white/10 hover:bg-white/10': note.status === 'active',
+        'bg-green-500/10 border-green-400/30': note.status === 'completed',
+        'bg-red-500/10 border-red-400/30 opacity-60': note.status === 'deleted',
+      }"
+    >
+      <!-- LEFT STATUS BAR -->
+      <div
+        class="absolute left-0 top-0 bottom-0 w-1"
+        [ngClass]="{
+          'bg-white/20': note.status === 'active',
+          'bg-green-400': note.status === 'completed',
+          'bg-red-400': note.status === 'deleted',
+        }"
+      ></div>
+
+      <!-- CONTENT -->
+      <div class="flex justify-between items-start p-4 pl-6">
+        <!-- LEFT -->
+        <div class="flex flex-col gap-2 w-full">
+          <!-- TITLE ROW -->
+          <div class="flex items-center gap-2">
+            <h3
+              class="font-semibold transition"
+              [ngClass]="{
+                'text-white': note.status === 'active',
+                'text-green-200 line-through': note.status === 'completed',
+                'text-white/40': note.status === 'deleted',
+              }"
+            >
+              {{ note.title }}
+            </h3>
+
+            <!-- BADGES -->
+            <span
+              *ngIf="note.isFavorite"
+              class="text-[10px] px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300"
+            >
+              ⭐
+            </span>
+
+            <span
+              *ngIf="note.status === 'completed'"
+              class="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-300"
+            >
+              done
+            </span>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <p class="text-xs text-white/50 line-clamp-2">
+            {{ note.content }}
+          </p>
+
+          <!-- TAGS -->
+          <div class="flex flex-wrap gap-2 mt-1">
+            <span
+              *ngFor="let tag of note.categories"
+              class="text-[10px] px-2 py-1 rounded-full bg-white/10 text-white/60"
+            >
+              {{ tag!.name }}
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT ACTIONS -->
+        <div class="flex flex-col gap-2 items-end">
+          <!-- FAVORITE -->
+          <button
+            class="w-8 h-8 rounded-xl border flex items-center justify-center transition"
+            (click)="toggleFavoriteNote(note.id)"
+            [ngClass]="
+              note.isFavorite
+                ? 'bg-yellow-500/20 border-yellow-400 text-yellow-300'
+                : 'border-white/20 text-white/40 hover:bg-white/10'
+            "
+          >
+            <ion-icon [name]="note.isFavorite ? 'star' : 'star-outline'"></ion-icon>
+          </button>
+
+          <!-- COMPLETE -->
+          <button
+            class="w-8 h-8 rounded-xl border flex items-center justify-center transition"
+            (click)="toggleComplete(note.id)"
+            [ngClass]="
+              note.status === 'completed'
+                ? 'bg-green-500/20 border-green-400 text-green-300'
+                : 'border-white/20 text-white/40 hover:bg-white/10'
+            "
+          >
+            <ion-icon [name]="note.status === 'completed' ? 'refresh' : 'checkmark-outline'">
+            </ion-icon>
+          </button>
+
+          <!-- DELETE -->
+          <button
+            *ngIf="note.status !== 'deleted'"
+            class="w-8 h-8 rounded-xl border border-white/20 text-white/40 hover:bg-red-500/20 hover:border-red-400 hover:text-red-300 transition"
+            (click)="deleteTask(note)"
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #emptyState>
+  <div class="flex flex-col items-center justify-center text-center py-16 px-6">
+    <!-- ICON -->
+    <div class="text-5xl mb-4 opacity-70">📝</div>
+    <!-- TITLE -->
+    <h2 class="text-xl font-semibold mb-2">No notes yet</h2>
+    <p class="text-sm text-white/50 max-w-sm">
+      Start organizing your day. Create your first note and boost your productivity 🚀
+    </p>
+    <button
+      class="mt-6 px-5 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white/70 font-semibold hover:scale-[1.03] transition"
+      (click)="goToCreate()"
+    >
+      + Create your first note
+    </button>
+  </div>
+</ng-template>
