@@ -67,10 +67,6 @@ export class LoginPage implements OnInit {
     this.restoreRememberedEmail();
   }
 
-  // =========================
-  // UX ACTIONS
-  // =========================
-
   togglePassword = () => {
     this.showPassword = !this.showPassword;
   };
@@ -79,10 +75,6 @@ export class LoginPage implements OnInit {
     const control = this.form.controls.remember;
     control.setValue(!control.value);
   };
-
-  // =========================
-  // VALIDATION HELPERS
-  // =========================
 
   getControlState = (controlName: keyof LoginForm) => {
     const c = this.form.controls[controlName];
@@ -104,10 +96,6 @@ export class LoginPage implements OnInit {
     return this.errorMap[firstError] || null;
   };
 
-  // =========================
-  // LOGIN FLOW
-  // =========================
-
   submit = () => {
     this.submitted = true;
 
@@ -121,10 +109,6 @@ export class LoginPage implements OnInit {
 
     this.auth.login(email, password, remember);
   };
-
-  // =========================
-  // REMEMBER ME
-  // =========================
 
   private persistRemember(email: string, remember: boolean) {
     if (remember) {

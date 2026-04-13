@@ -25,10 +25,6 @@ export class SplashFacade {
 
   state$ = this.stateSubject.asObservable();
 
-  // =========================
-  // INIT FLOW
-  // =========================
-
   init() {
     this.startLoading();
     this.startDots();
@@ -39,10 +35,6 @@ export class SplashFacade {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  // =========================
-  // LOADING STREAM
-  // =========================
 
   private startLoading() {
     const duration = 2400;
@@ -60,10 +52,6 @@ export class SplashFacade {
       });
   }
 
-  // =========================
-  // DOTS STREAM
-  // =========================
-
   private startDots() {
     interval(400)
       .pipe(takeUntil(this.destroy$))
@@ -74,10 +62,6 @@ export class SplashFacade {
         this.patch({ dots: next });
       });
   }
-
-  // =========================
-  // NAVIGATION FLOW
-  // =========================
 
   private startNavigation() {
     timer(1600)
@@ -92,10 +76,6 @@ export class SplashFacade {
           });
       });
   }
-
-  // =========================
-  // STATE PATCH
-  // =========================
 
   private patch(partial: Partial<SplashState>) {
     this.stateSubject.next({

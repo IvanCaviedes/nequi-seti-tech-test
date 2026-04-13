@@ -1,7 +1,6 @@
 <ion-modal [isOpen]="isCreateCategoryOpen" class="create-category-modal" [backdropDismiss]="false">
   <ng-template>
     <div class="flex flex-col h-full bg-[#0b0b0f] text-white">
-      <!-- HEADER -->
       <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
         <h2 class="text-sm font-semibold">
           {{ isEditMode ? 'Edit category' : 'Create category' }}
@@ -12,11 +11,7 @@
         </button>
       </div>
 
-      <!-- FORM -->
       <form [formGroup]="form" class="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-6">
-        <!-- ========================= -->
-        <!-- 👁 STICKY PREVIEW -->
-        <!-- ========================= -->
         <div class="sticky top-0 z-10 pb-4 bg-[#0b0b0f]/80 backdrop-blur-xl">
           <div
             class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
@@ -39,14 +34,7 @@
             </div>
           </div>
         </div>
-
-        <!-- ========================= -->
-        <!-- 🔥 FORM WRAPPER -->
-        <!-- ========================= -->
         <div class="max-w-md w-full mx-auto flex flex-col gap-6">
-          <!-- ========================= -->
-          <!-- ✏️ NAME -->
-          <!-- ========================= -->
           <div class="flex flex-col gap-2 w-full">
             <label class="text-xs text-white/40">Name</label>
 
@@ -58,8 +46,6 @@
               [class.border-red-500]="form.get('name')?.touched && form.get('name')?.invalid"
               [class.border-white/10]="!(form.get('name')?.touched && form.get('name')?.invalid)"
             />
-
-            <!-- ERRORS -->
             <span
               *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']"
               class="text-xs text-red-400"
@@ -82,9 +68,6 @@
             </span>
           </div>
 
-          <!-- ========================= -->
-          <!-- 🎨 COLORS -->
-          <!-- ========================= -->
           <div class="flex flex-col gap-2 w-full">
             <label class="text-xs text-white/40">Color</label>
 
@@ -108,9 +91,6 @@
             </div>
           </div>
 
-          <!-- ========================= -->
-          <!-- 🎯 ICONS -->
-          <!-- ========================= -->
           <div class="flex flex-col gap-2 w-full">
             <label class="text-xs text-white/40">Icon</label>
 
@@ -129,7 +109,6 @@
         </div>
       </form>
 
-      <!-- FOOTER -->
       <div class="p-5 border-t border-white/10">
         <button
           (click)="createCategory()"

@@ -54,10 +54,6 @@ export class RegisterPage {
   showConfirmPassword = false;
   submitted = false;
 
-  // =========================
-  // VALIDATORS
-  // =========================
-
   passwordMatchValidator = (form: AbstractControl): ValidationErrors | null => {
     const password = form.get('password')?.value as string | undefined;
     const confirm = form.get('confirmPassword')?.value as string | undefined;
@@ -86,10 +82,6 @@ export class RegisterPage {
     passwordMismatch: 'Passwords do not match',
   };
 
-  // =========================
-  // UX
-  // =========================
-
   togglePassword = () => {
     this.showPassword = !this.showPassword;
   };
@@ -102,10 +94,6 @@ export class RegisterPage {
     const c = this.form.controls.acceptTerms;
     c.setValue(!c.value);
   };
-
-  // =========================
-  // VALIDATION HELPERS
-  // =========================
 
   getControlState = (control: keyof RegisterForm) => {
     const c = this.form.controls[control];
@@ -137,10 +125,6 @@ export class RegisterPage {
 
     return null;
   }
-
-  // =========================
-  // SUBMIT
-  // =========================
 
   submit = () => {
     this.submitted = true;

@@ -14,6 +14,7 @@ export class RemoteConfigService {
   flags$ = this.flagsSubject.asObservable();
 
   constructor() {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const app = initializeApp(environment.firebase);
     this.rc = getRemoteConfig(app);
 

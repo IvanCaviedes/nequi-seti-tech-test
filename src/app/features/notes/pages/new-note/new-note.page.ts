@@ -18,29 +18,17 @@ import { NotesFecade } from '../../fecade/notes.fecade';
   imports: [IonIcon, IonContent, CommonModule, ReactiveFormsModule, TopBarComponent],
 })
 export class NewNotePage implements OnInit {
-  // =========================
-  // 🔌 DEPENDENCIES
-  // =========================
   private facade = inject(NotesFecade);
   private navCtrl = inject(NavController);
   private fb = inject(FormBuilder);
 
-  // =========================
-  // 📦 STATE
-  // =========================
   readonly selectedCategories$ = this.facade.selectedCategoriesVM$;
 
-  // =========================
-  // 🧠 FORM
-  // =========================
   form = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     description: ['', [Validators.required, Validators.maxLength(500)]],
   });
 
-  // =========================
-  // 🧠 GUARD (NO CATEGORIES)
-  // =========================
   ngOnInit(): void {
     this.selectedCategories$.subscribe((list) => {
       if (!list.length) {
@@ -49,9 +37,6 @@ export class NewNotePage implements OnInit {
     });
   }
 
-  // =========================
-  // 🚀 CREATE TASK
-  // =========================
   createTask() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -79,9 +64,6 @@ export class NewNotePage implements OnInit {
     void this.navCtrl.navigateForward('/app/' + ROUTES.APP.ROOT);
   }
 
-  // =========================
-  // 🧭 HELPERS
-  // =========================
   get f() {
     return this.form.controls;
   }

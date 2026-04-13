@@ -9,7 +9,6 @@
       [class.bg-white/5]="!isSelected(item.id)"
       [class.border-white/10]="!isSelected(item.id)"
     >
-      <!-- TOP -->
       <div class="flex items-start justify-between">
         <div class="flex items-center gap-3">
           <!-- ICON -->
@@ -46,7 +45,6 @@
         </div>
       </div>
 
-      <!-- FOOTER -->
       <div class="mt-4 flex items-center justify-between text-xs text-white/40">
         <span>{{ getTimeLabel(item) }}</span>
 
@@ -83,20 +81,16 @@
 
 <ng-template #emptyState>
   <div class="flex flex-col items-center justify-center text-center py-10 px-4">
-    <!-- ICON -->
     <div
       class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4"
     >
       <ion-icon name="layers-outline" class="text-2xl text-white/40"></ion-icon>
     </div>
 
-    <!-- TITLE -->
     <h2 class="text-base font-semibold text-white mb-1">No categories yet</h2>
 
-    <!-- DESC -->
     <p class="text-xs text-white/50 max-w-xs">Create your first category to organize your tasks</p>
 
-    <!-- CTA -->
     <button
       class="mt-5 px-4 py-2 rounded-xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-medium hover:bg-indigo-500/30 transition"
       (click)="openModalCreateCategorie()"

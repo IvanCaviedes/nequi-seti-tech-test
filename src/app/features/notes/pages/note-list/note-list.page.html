@@ -1,17 +1,10 @@
 <ion-content fullscreen="true" class="ion-no-padding text-white">
-  <div class="flex-1 flex flex-col relative bg-red">
-    <!-- TOPBAR -->
+  <div class="flex-1 flex flex-col relative bg-red bg-black">
     <app-topbar-notes />
 
-    <!-- GRID -->
     <div class="flex-1 px-5 md:px-8 pb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- ========================= -->
-      <!-- CENTER -->
-      <!-- ========================= -->
       <div class="lg:col-span-2 flex flex-col gap-6">
-        <!-- STATS -->
         <ng-container *ngIf="enableNewUI$ | async; else legacyUIStats">
-          <!-- 🆕 UI NUEVA -->
           <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
             <h2 class="text-white font-semibold">✨ New Notes UI Enabled</h2>
             <p class="text-white/60 text-xs">Feature flag ACTIVE via Remote Config</p>
@@ -23,9 +16,7 @@
           <app-stats-notes />
         </ng-template>
 
-        <!-- TASKS -->
         <div class="flex flex-col gap-6">
-          <!-- SECTION HEADER -->
           <div class="flex items-end justify-between">
             <div>
               <h2 class="text-2xl font-semibold tracking-tight">Your Notes</h2>
@@ -36,10 +27,8 @@
             </div>
           </div>
 
-          <!-- DIVIDER -->
           <div class="h-px bg-white/10"></div>
 
-          <!-- CONTENT WRAPPER -->
           <div class="flex flex-col gap-3">
             <app-note-filters />
             <ng-container *ngIf="enableNewUI$ | async; else legacyUI">
@@ -59,9 +48,6 @@
         </div>
       </div>
 
-      <!-- ========================= -->
-      <!-- RIGHT PANEL -->
-      <!-- ========================= -->
       <div class="flex flex-col gap-6">
         <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
           <div class="font-semibold mb-3">Calendar</div>

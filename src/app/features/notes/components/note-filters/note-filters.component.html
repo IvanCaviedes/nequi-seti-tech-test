@@ -2,7 +2,6 @@
   class="flex flex-col gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl"
   *ngIf="filters$ | async as filters"
 >
-  <!-- HEADER -->
   <div class="flex items-center justify-between">
     <div>
       <h2 class="text-sm font-semibold text-white">Filters</h2>
@@ -10,7 +9,6 @@
     </div>
   </div>
 
-  <!-- SEARCH -->
   <div class="relative">
     <ion-icon
       name="search-outline"
@@ -24,9 +22,7 @@
     />
   </div>
 
-  <!-- STATUS FILTERS -->
   <div class="grid grid-cols-4 gap-2">
-    <!-- ALL -->
     <button
       (click)="facade.setStatus('all')"
       class="px-3 py-2 rounded-xl text-xs border transition"
@@ -39,7 +35,6 @@
       All
     </button>
 
-    <!-- ACTIVE -->
     <button
       (click)="facade.setStatus('active')"
       class="px-3 py-2 rounded-xl text-xs border transition"
@@ -52,7 +47,6 @@
       Active
     </button>
 
-    <!-- COMPLETED -->
     <button
       (click)="facade.setStatus('completed')"
       class="px-3 py-2 rounded-xl text-xs border transition"
@@ -65,7 +59,6 @@
       Completed
     </button>
 
-    <!-- DELETED -->
     <button
       (click)="facade.setStatus('deleted')"
       class="px-3 py-2 rounded-xl text-xs border transition"
@@ -79,9 +72,7 @@
     </button>
   </div>
 
-  <!-- QUICK TOGGLES -->
   <div class="flex items-center gap-2">
-    <!-- FAVORITES -->
     <button
       (click)="facade.toggleFavorites()"
       class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border transition"
@@ -95,7 +86,6 @@
       Favorites
     </button>
 
-    <!-- TAGS (modo toggle global) -->
     <button
       *ngFor="let tag of categories$ | async"
       (click)="facade.toggleTag(tag.id)"

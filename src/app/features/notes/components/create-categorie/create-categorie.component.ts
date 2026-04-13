@@ -23,31 +23,19 @@ export class CategorieCreateModalComponent implements OnChanges {
       });
     }
   }
-  // =========================
-  // 📥 INPUT / OUTPUT
-  // =========================
   @Input() isCreateCategoryOpen = false;
   @Output() categoryClosed = new EventEmitter<void>();
   @Input() categoryToEdit?: CategoryWithCount;
 
-  // =========================
-  // 🧠 DEPENDENCIES
-  // =========================
   private facade = inject(NotesFecade);
   private fb = inject(FormBuilder);
 
-  // =========================
-  // 🧾 FORM
-  // =========================
   form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     color: ['#6366f1', Validators.required],
     icon: ['folder-outline', Validators.required],
   });
 
-  // =========================
-  // 🎨 CONSTANTS
-  // =========================
   readonly colors: string[] = [
     '#6366f1',
     '#8b5cf6',
@@ -103,9 +91,6 @@ export class CategorieCreateModalComponent implements OnChanges {
     'log-out-outline',
   ];
 
-  // =========================
-  // 🧠 GETTERS (LIMPIOS)
-  // =========================
   get name() {
     return this.form.get('name');
   }
@@ -118,9 +103,6 @@ export class CategorieCreateModalComponent implements OnChanges {
     return !!this.categoryToEdit;
   }
 
-  // =========================
-  // 🎯 ACTIONS
-  // =========================
   closeModal(): void {
     this.form.reset({
       name: '',
@@ -151,9 +133,6 @@ export class CategorieCreateModalComponent implements OnChanges {
     this.closeModal();
   }
 
-  // =========================
-  // 🎨 SELECTORS
-  // =========================
   selectColor(color: string): void {
     this.form.patchValue({ color });
   }
