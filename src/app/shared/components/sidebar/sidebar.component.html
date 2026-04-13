@@ -1,0 +1,34 @@
+<aside
+  class="hidden md:flex w-72 flex-col p-5 gap-6 bg-white/5 backdrop-blur-2xl border-r border-white/10 h-full"
+>
+  <!-- BRAND -->
+  <div class="text-xl font-bold flex items-center gap-2">📝 NotePad Pro</div>
+
+  <!-- NAV -->
+  <nav class="flex flex-col gap-2 text-sm">
+    <button
+      *ngFor="let item of menu"
+      (click)="go(item.route)"
+      class="flex items-center gap-3 px-3 py-2 rounded-xl transition"
+      [ngClass]="
+        isActive(item.route)
+          ? 'bg-white/10 text-white'
+          : 'text-white/60 hover:bg-white/10 hover:text-white'
+      "
+    >
+      <ion-icon [name]="item.icon"></ion-icon>
+      {{ item.label }}
+    </button>
+  </nav>
+
+  <!-- FOOTER -->
+  <div class="mt-auto border-t border-white/10 pt-4">
+    <button
+      (click)="logout()"
+      class="w-full flex items-center gap-2 px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-300 transition"
+    >
+      <ion-icon name="log-out-outline"></ion-icon>
+      Cerrar sesión
+    </button>
+  </div>
+</aside>

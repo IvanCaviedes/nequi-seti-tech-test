@@ -1,0 +1,69 @@
+<ng-container *ngIf="stats$ | async as stats">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <!-- TASKS -->
+    <div
+      class="group bg-white/5 hover:bg-white/10 transition backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between"
+    >
+      <div>
+        <div class="text-xs text-white/50">Tasks</div>
+        <div class="text-2xl font-bold">{{ stats.total }}</div>
+      </div>
+
+      <div
+        class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition"
+      >
+        <ion-icon name="list-outline" class="text-xl text-white"></ion-icon>
+      </div>
+    </div>
+
+    <!-- DONE -->
+    <div
+      class="group bg-white/5 hover:bg-white/10 transition backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between"
+    >
+      <div>
+        <div class="text-xs text-white/50">Done</div>
+        <div class="text-2xl font-bold text-green-400">{{ stats.completed }}</div>
+      </div>
+
+      <div
+        class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition"
+      >
+        <ion-icon name="checkmark-done-outline" class="text-xl text-green-400"></ion-icon>
+      </div>
+    </div>
+
+    <!-- FAVORITES -->
+    <div
+      class="group bg-white/5 hover:bg-white/10 transition backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between"
+    >
+      <div>
+        <div class="text-xs text-white/50">Favorites</div>
+        <div class="text-2xl font-bold text-red-400">{{ stats.favorites }}</div>
+      </div>
+
+      <div
+        class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition"
+      >
+        <ion-icon name="heart-outline" class="text-xl text-red-400"></ion-icon>
+      </div>
+    </div>
+
+    <!-- FOCUS -->
+    <div
+      class="group bg-white/5 hover:bg-white/10 transition backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex items-center justify-between"
+    >
+      <div>
+        <div class="text-xs text-white/50">Focus</div>
+        <div class="text-2xl font-bold text-cyan-400">
+          {{ (stats.active / (stats.total || 1)) * 100 | number: '1.0-0' }}%
+        </div>
+      </div>
+
+      <div
+        class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition"
+      >
+        <ion-icon name="flash-outline" class="text-xl text-cyan-400"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ng-container>

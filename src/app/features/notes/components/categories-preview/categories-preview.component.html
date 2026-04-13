@@ -1,0 +1,60 @@
+<div class="flex flex-col p-4 rounded-2xl backdrop-blur-xl transition mt-5">
+  <!-- TOP -->
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <!-- ICON -->
+      <div
+        class="w-12 h-12 rounded-xl flex items-center justify-center border"
+        [style.background]="category.color + '22'"
+        [style.borderColor]="category.color + '55'"
+      >
+        <ion-icon [name]="category.icon" class="text-xl text-white"></ion-icon>
+      </div>
+
+      <!-- TEXT -->
+      <div class="flex flex-col">
+        <span class="text-sm font-semibold text-white">
+          {{ category.name }}
+        </span>
+
+        <span class="text-xs text-white/40"
+          >{{ category.notesCount }} tasks • {{ category.completedCount }} completed
+        </span>
+      </div>
+    </div>
+
+    <!-- BADGE -->
+    <div
+      class="text-[10px] px-2 py-1 rounded-lg border"
+      [style.background]="category.color + '22'"
+      [style.borderColor]="category.color + '55'"
+    >
+      Active
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="mt-4" *ngIf="category.notesCount > 0; else emptyProgress">
+    <div class="flex justify-between text-xs text-white/40 mb-2">
+      <span>Progress</span>
+
+      <span class="text-white/60 font-medium">
+        {{ (category.completedCount / category.notesCount) * 100 | number: '1.0-0' }}%
+      </span>
+    </div>
+
+    <!-- BAR -->
+    <div class="relative w-full h-2 rounded-full bg-white/10 overflow-hidden">
+      <div
+        class="h-full rounded-full transition-all duration-300"
+        [style.width.%]="(category.completedCount / category.notesCount) * 100"
+        [style.background]="category.color"
+      ></div>
+    </div>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <ng-template #emptyProgress>
+    <div class="text-xs text-white/30 mt-4">No tasks yet</div>
+  </ng-template>
+</div>

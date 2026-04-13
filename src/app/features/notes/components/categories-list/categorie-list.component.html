@@ -1,0 +1,107 @@
+<ng-container *ngIf="categories.length > 0; else emptyState">
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+    <div
+      *ngFor="let item of categories; trackBy: trackById"
+      (click)="selectedCategorieToggle(item)"
+      class="group relative p-4 rounded-2xl border backdrop-blur-xl transition cursor-pointer shadow-lg hover:shadow-xl"
+      [class.bg-indigo-500/20]="isSelected(item.id)"
+      [class.border-indigo-400]="isSelected(item.id)"
+      [class.bg-white/5]="!isSelected(item.id)"
+      [class.border-white/10]="!isSelected(item.id)"
+    >
+      <!-- TOP -->
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-3">
+          <!-- ICON -->
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center border"
+            [style.background]="item.color + '22'"
+            [style.borderColor]="item.color + '55'"
+          >
+            <ion-icon [name]="item.icon" class="text-xl text-white"></ion-icon>
+          </div>
+
+          <!-- TEXT -->
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-white">
+              {{ item.name }}
+            </span>
+
+            <span class="text-xs text-white/40"> {{ item.notesCount }} tasks </span>
+          </div>
+        </div>
+
+        <!-- ✅ CHECK REAL -->
+        <div
+          class="w-6 h-6 rounded-md flex items-center justify-center border transition"
+          [class.bg-indigo-500]="isSelected(item.id)"
+          [class.border-indigo-400]="isSelected(item.id)"
+          [class.border-white/20]="!isSelected(item.id)"
+        >
+          <ion-icon
+            *ngIf="isSelected(item.id)"
+            name="checkmark-outline"
+            class="text-white text-sm"
+          ></ion-icon>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="mt-4 flex items-center justify-between text-xs text-white/40">
+        <span>{{ getTimeLabel(item) }}</span>
+
+        <div class="flex gap-2">
+          <button
+            (click)="$event.stopPropagation(); editCategory.emit(item)"
+            class="absolute top-3 right-10 w-7 h-7 rounded-lg flex items-center justify-center border border-white/10 bg-white/5 hover:bg-blue-500/20 hover:border-blue-400 transition"
+            title="Edit category"
+          >
+            <ion-icon name="create-outline" class="text-xs text-white"></ion-icon>
+          </button>
+          <button
+            *ngIf="item.canDelete"
+            (click)="$event.stopPropagation(); categoryDisabled.emit(item)"
+            class="w-7 h-7 rounded-lg flex items-center justify-center border border-white/10 bg-white/5 hover:bg-red-500 hover:border-red-400 transition"
+            title="Disable category"
+          >
+            <ion-icon name="trash-outline" class="text-white text-[14px]"></ion-icon>
+          </button>
+          <span
+            class="px-2 py-1 rounded-lg border"
+            [class.bg-indigo-500/20]="isSelected(item.id)"
+            [class.border-indigo-400/30]="isSelected(item.id)"
+            [class.bg-white/5]="!isSelected(item.id)"
+            [class.border-white/10]="!isSelected(item.id)"
+          >
+            {{ isSelected(item.id) ? 'Selected' : 'Available' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #emptyState>
+  <div class="flex flex-col items-center justify-center text-center py-10 px-4">
+    <!-- ICON -->
+    <div
+      class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4"
+    >
+      <ion-icon name="layers-outline" class="text-2xl text-white/40"></ion-icon>
+    </div>
+
+    <!-- TITLE -->
+    <h2 class="text-base font-semibold text-white mb-1">No categories yet</h2>
+
+    <!-- DESC -->
+    <p class="text-xs text-white/50 max-w-xs">Create your first category to organize your tasks</p>
+
+    <!-- CTA -->
+    <button
+      class="mt-5 px-4 py-2 rounded-xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-medium hover:bg-indigo-500/30 transition"
+      (click)="openModalCreateCategorie()"
+    >
+      + Create category
+    </button>
+  </div>
+</ng-template>
