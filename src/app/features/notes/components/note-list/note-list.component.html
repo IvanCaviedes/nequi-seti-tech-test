@@ -2,7 +2,6 @@
   <ion-item-sliding *ngFor="let note of notes">
     <!-- OPTIONS -->
     <ion-item-options side="end" *ngIf="note.status === 'active'">
-      <ion-item-option color="primary">Edit</ion-item-option>
       <ion-item-option color="danger" (click)="deleteTask(note)">Delete</ion-item-option>
     </ion-item-options>
 

@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 
+import { RemoteConfigService } from 'src/app/core/services/remote-config.service';
+
 import type { Category } from '../models/category.model';
 import type { NoteFilters } from '../models/note-filters.model';
 import type { Note, NoteStatus } from '../models/note.model';
@@ -11,6 +13,11 @@ import { NotesService } from '../services/note.service';
 export class NotesFecade {
   private readonly notesService = inject(NotesService);
   private readonly categoriesService = inject(CategoriesService);
+
+  private featureFlags = inject(RemoteConfigService);
+  readonly enableNewUI$ = this.featureFlags.flags$.pipe(
+    map((flags) => flags['enableNewNotesUI'] ?? false),
+  );
 
   $notes = this.notesService.notes$;
   $stats = this.notesService.stats$;

@@ -10,7 +10,19 @@
       <!-- ========================= -->
       <div class="lg:col-span-2 flex flex-col gap-6">
         <!-- STATS -->
-        <app-stats-notes />
+        <ng-container *ngIf="enableNewUI$ | async; else legacyUIStats">
+          <!-- 🆕 UI NUEVA -->
+          <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
+            <h2 class="text-white font-semibold">✨ New Notes UI Enabled</h2>
+            <p class="text-white/60 text-xs">Feature flag ACTIVE via Remote Config</p>
+          </div>
+
+          <app-stats-v2-notes />
+        </ng-container>
+        <ng-template #legacyUIStats>
+          <app-stats-notes />
+        </ng-template>
+
         <!-- TASKS -->
         <div class="flex flex-col gap-6">
           <!-- SECTION HEADER -->
@@ -30,7 +42,19 @@
           <!-- CONTENT WRAPPER -->
           <div class="flex flex-col gap-3">
             <app-note-filters />
-            <app-note-list [notes]="(notes$ | async) || []" />
+            <ng-container *ngIf="enableNewUI$ | async; else legacyUI">
+              <!-- 🆕 UI NUEVA -->
+              <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
+                <h2 class="text-white font-semibold">✨ New Notes UI Enabled</h2>
+                <p class="text-white/60 text-xs">Feature flag ACTIVE via Remote Config</p>
+              </div>
+
+              <app-note-list-v2 [notes]="(notes$ | async) || []"></app-note-list-v2>
+            </ng-container>
+
+            <ng-template #legacyUI>
+              <app-note-list [notes]="(notes$ | async) || []" />
+            </ng-template>
           </div>
         </div>
       </div>
