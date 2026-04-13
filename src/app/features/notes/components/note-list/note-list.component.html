@@ -1,47 +1,75 @@
 <ng-container *ngIf="notes.length > 0; else emptyState">
   <ion-item-sliding *ngFor="let note of notes">
-    <ion-item-options side="end">
-      <ion-item-option color="primary"> Edit </ion-item-option>
-      <ion-item-option color="danger"> Delete </ion-item-option>
+    <!-- OPTIONS -->
+    <ion-item-options side="end" *ngIf="note.status === 'active'">
+      <ion-item-option color="primary">Edit</ion-item-option>
+      <ion-item-option color="danger" (click)="deleteTask(note)">Delete</ion-item-option>
     </ion-item-options>
 
+    <!-- CARD -->
     <ion-item
       lines="none"
-      class="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl hover:bg-white/10 transition"
       style="--background: transparent"
+      class="group backdrop-blur-xl border rounded-2xl transition mt-3"
+      [ngClass]="
+        note.status === 'deleted'
+          ? 'bg-red-500/10 border-red-400/30 opacity-50'
+          : note.status === 'completed'
+            ? 'bg-green-500/10 border-green-400/30 opacity-80'
+            : 'bg-white/5 border-white/10 hover:bg-white/10'
+      "
     >
       <div class="flex justify-between w-full items-center p-2">
         <!-- LEFT -->
         <div class="flex flex-col gap-1">
-          <div class="font-semibold group-hover:translate-x-1 transition flex items-center gap-2">
+          <!-- TITLE -->
+          <div
+            class="font-semibold flex items-center gap-2 transition"
+            [ngClass]="
+              note.status === 'completed'
+                ? 'line-through text-white/40'
+                : 'group-hover:translate-x-1 text-white'
+            "
+          >
             📌 {{ note.title }}
 
-            <!-- badge favorito -->
+            <!-- FAVORITE -->
             <span
               *ngIf="note.isFavorite"
               class="text-[10px] px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300"
             >
               ⭐ Favorite
             </span>
+
+            <!-- COMPLETED BADGE -->
+            <span
+              *ngIf="note.status === 'completed'"
+              class="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-300"
+            >
+              ✔ Completed
+            </span>
           </div>
 
-          <div class="text-xs text-white/50">{{ note.isFavorite }} • Focus session</div>
+          <!-- SUBTITLE -->
+          <div class="text-xs text-white/50">{{ note.status }} • Focus session</div>
 
+          <!-- TAGS -->
           <div class="flex gap-2 mt-1">
             <span
-              *ngFor="let tag of note.tagIds"
+              *ngFor="let tag of note.categories"
               class="text-[10px] bg-white/10 px-2 py-1 rounded-full"
             >
-              {{ tag }}
+              {{ tag!.name }}
             </span>
           </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="flex items-center gap-2">
-          <!-- ⭐ FAVORITO TOGGLE -->
+        <!-- RIGHT ACTIONS -->
+        <div class="flex items-center gap-2" *ngIf="note.status !== 'deleted'">
+          <!-- ⭐ FAVORITE -->
           <div
             class="w-6 h-6 rounded-lg border flex items-center justify-center cursor-pointer transition"
+            (click)="toggleFavoriteNote(note.id)"
             [ngClass]="
               note.isFavorite
                 ? 'bg-yellow-500/20 border-yellow-400 text-yellow-300'
@@ -51,17 +79,27 @@
             <ion-icon [name]="note.isFavorite ? 'star' : 'star-outline'" class="text-sm"></ion-icon>
           </div>
 
-          <!-- CHECK -->
+          <!-- ✔ COMPLETE / RESTORE -->
           <div
-            class="w-6 h-6 rounded-lg border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white/10 transition"
+            class="w-6 h-6 rounded-lg border flex items-center justify-center cursor-pointer transition"
+            (click)="toggleComplete(note.id)"
+            [ngClass]="
+              note.status === 'completed'
+                ? 'bg-green-500/20 border-green-400 text-green-300'
+                : 'border-white/20 hover:bg-white/10 text-white/40'
+            "
           >
-            ✔
+            <ion-icon
+              [name]="note.status === 'completed' ? 'refresh' : 'checkmark-outline'"
+              class="text-sm"
+            ></ion-icon>
           </div>
         </div>
       </div>
     </ion-item>
   </ion-item-sliding>
 </ng-container>
+
 <ng-template #emptyState>
   <div class="flex flex-col items-center justify-center text-center py-16 px-6">
     <!-- ICON -->
@@ -73,6 +111,7 @@
     </p>
     <button
       class="mt-6 px-5 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white/70 font-semibold hover:scale-[1.03] transition"
+      (click)="goToCreate()"
     >
       + Create your first note
     </button>

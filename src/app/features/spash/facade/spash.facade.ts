@@ -80,7 +80,7 @@ export class SplashFacade {
   // =========================
 
   private startNavigation() {
-    timer(2600)
+    timer(1600)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.patch({ status: 'navigating' });

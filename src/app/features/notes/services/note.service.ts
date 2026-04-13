@@ -48,10 +48,6 @@ export class NotesService {
     this.update(id, { status: 'deleted' });
   }
 
-  archive(id: string): void {
-    this.update(id, { status: 'archived' });
-  }
-
   toggleFavorite(id: string): void {
     const note = this.notesSubject.value.find((n) => n.id === id);
     if (!note) {
@@ -61,6 +57,14 @@ export class NotesService {
     this.update(id, { isFavorite: !note.isFavorite });
   }
 
+  toggleComplete(id: string): void {
+    const note = this.notesSubject.value.find((n) => n.id === id);
+    if (!note) {
+      return;
+    }
+
+    this.update(id, { status: note.status === 'completed' ? 'active' : 'completed' });
+  }
   private updateState(notes: Note[]): void {
     this.notesSubject.next(notes);
     this.storage.set(STORAGE_KEYS.NOTES, notes);
@@ -70,7 +74,7 @@ export class NotesService {
     return {
       total: notes.length,
       active: notes.filter((n) => n.status === 'active').length,
-      archived: notes.filter((n) => n.status === 'archived').length,
+      completed: notes.filter((n) => n.status === 'completed').length,
       deleted: notes.filter((n) => n.status === 'deleted').length,
       favorites: notes.filter((n) => n.isFavorite).length,
     };

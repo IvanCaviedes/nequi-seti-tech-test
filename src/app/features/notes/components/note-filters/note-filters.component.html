@@ -1,12 +1,13 @@
-<div class="flex flex-col gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+<div
+  class="flex flex-col gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl"
+  *ngIf="filters$ | async as filters"
+>
   <!-- HEADER -->
   <div class="flex items-center justify-between">
     <div>
       <h2 class="text-sm font-semibold text-white">Filters</h2>
       <p class="text-xs text-white/40">Refine your notes</p>
     </div>
-
-    <span class="text-[10px] px-2 py-1 rounded-full bg-white/10 text-white/50"> Advanced </span>
   </div>
 
   <!-- SEARCH -->
@@ -19,71 +20,94 @@
     <input
       placeholder="Search notes..."
       class="w-full pl-9 pr-3 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white outline-none focus:border-white/30 focus:bg-white/10 transition"
+      (input)="facade.setSearch($event.target.value)"
     />
   </div>
 
   <!-- STATUS FILTERS -->
-  <div class="grid grid-cols-3 gap-2">
+  <div class="grid grid-cols-4 gap-2">
+    <!-- ALL -->
     <button
-      class="px-3 py-2 rounded-xl text-xs border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+      (click)="facade.setStatus('all')"
+      class="px-3 py-2 rounded-xl text-xs border transition"
+      [ngClass]="
+        filters.status === 'all'
+          ? 'bg-green-500/20 border-green-400/30 text-green-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
     >
       All
     </button>
 
+    <!-- ACTIVE -->
     <button
-      class="px-3 py-2 rounded-xl text-xs border bg-green-500/10 border-green-400/20 text-green-300 hover:bg-green-500/20 transition"
+      (click)="facade.setStatus('active')"
+      class="px-3 py-2 rounded-xl text-xs border transition"
+      [ngClass]="
+        filters.status === 'active'
+          ? 'bg-green-500/20 border-green-400/30 text-green-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
     >
       Active
     </button>
 
+    <!-- COMPLETED -->
     <button
-      class="px-3 py-2 rounded-xl text-xs border bg-gray-500/10 border-gray-400/20 text-gray-300 hover:bg-gray-500/20 transition"
+      (click)="facade.setStatus('completed')"
+      class="px-3 py-2 rounded-xl text-xs border transition"
+      [ngClass]="
+        filters.status === 'completed'
+          ? 'bg-green-500/20 border-green-400/30 text-green-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
     >
-      Archived
+      Completed
+    </button>
+
+    <!-- DELETED -->
+    <button
+      (click)="facade.setStatus('deleted')"
+      class="px-3 py-2 rounded-xl text-xs border transition"
+      [ngClass]="
+        filters.status === 'deleted'
+          ? 'bg-red-500/20 border-red-400/30 text-red-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
+    >
+      Deleted
     </button>
   </div>
 
   <!-- QUICK TOGGLES -->
   <div class="flex items-center gap-2">
+    <!-- FAVORITES -->
     <button
-      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+      (click)="facade.toggleFavorites()"
+      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border transition"
+      [ngClass]="
+        filters.isFavorite
+          ? 'bg-yellow-500/20 border-yellow-400/30 text-yellow-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
     >
       <ion-icon name="star-outline" class="text-sm"></ion-icon>
       Favorites
     </button>
 
+    <!-- TAGS (modo toggle global) -->
     <button
-      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border bg-white/5 border-white/10 text-white/60 hover:bg-white/10 transition"
+      *ngFor="let tag of categories$ | async"
+      (click)="facade.toggleTag(tag.id)"
+      class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl border transition"
+      [ngClass]="
+        filters.categoryIds.includes(tag.id)
+          ? 'bg-indigo-500/20 border-indigo-400/30 text-indigo-300'
+          : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
+      "
     >
       <ion-icon name="pricetags-outline" class="text-sm"></ion-icon>
-      Tags
+      {{ tag.name }}
     </button>
-  </div>
-
-  <!-- TAGS -->
-  <div class="flex flex-wrap gap-2">
-    <span
-      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
-    >
-      Work
-    </span>
-
-    <span
-      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
-    >
-      Study
-    </span>
-
-    <span
-      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
-    >
-      Gym
-    </span>
-
-    <span
-      class="px-3 py-1 text-[11px] rounded-full border bg-white/5 border-white/10 text-white/50 hover:bg-white/10 cursor-pointer transition"
-    >
-      Personal
-    </span>
   </div>
 </div>

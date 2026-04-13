@@ -1,0 +1,88 @@
+<ion-content fullscreen="true" class="ion-no-padding text-white">
+  <div class="flex flex-col min-h-full">
+    <!-- TOPBAR -->
+    <app-topbar-notes [isBack]="true" title="Select Categories" />
+
+    <!-- HEADER -->
+    <div class="px-5 md:px-8 pt-5 pb-3">
+      <h2 class="text-xl font-semibold text-white">Select categories</h2>
+      <p class="text-xs text-white/40 mt-1">Choose one or more categories to organize your task</p>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="flex-1 px-5 md:px-8 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- LEFT SIDE -->
+      <div class="lg:col-span-2 flex flex-col gap-4">
+        <!-- HEADER ROW -->
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm text-white/70 font-medium">Your categories</h3>
+        </div>
+
+        <!-- CATEGORY GRID -->
+        <app-categorie-list
+          [categories]="(categories$ | async) || []"
+          (categoryCreated)="openCreateModal()"
+          (categoryDisabled)="disableCategorie($event)"
+          (openModalCategorieCreate)="openCreateModal()"
+          (editCategory)="editCategory($event)"
+        />
+      </div>
+
+      <!-- RIGHT SIDE PANEL -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-6 flex flex-col gap-4">
+          <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
+            <h3 class="text-sm font-semibold text-white">Tip</h3>
+
+            <p class="text-xs text-white/50 mt-2">
+              Categories help you organize tasks by project, priority or context.
+            </p>
+          </div>
+          <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+            <h3 class="text-sm font-semibold text-white">Category preview</h3>
+
+            <p class="text-xs text-white/40 mt-2">Select a category to see details here</p>
+
+            <app-categorie-preview
+              *ngFor="let cat of seleted$ | async; trackBy: trackById"
+              [category]="cat"
+            />
+          </div>
+
+          <div
+            class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20"
+            *ngIf="(seleted$ | async)!.length > 0 "
+          >
+            <h3 class="text-sm font-semibold text-white">Ready to create your task?</h3>
+
+            <button
+              class="mt-4 w-full py-3 rounded-xl bg-indigo-500 text-white text-sm font-medium"
+              (click)="goToNew()"
+            >
+              Go to Create Task
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING ACTION BUTTON -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button
+      class="group flex items-center gap-2 px-5 py-4 rounded-2xl bg-indigo-500 text-white shadow-2xl hover:bg-indigo-600 active:scale-95 transition-all duration-200"
+      (click)="openCreateModal()"
+    >
+      <ion-icon name="add-outline" class="text-xl group-hover:rotate-90 transition"></ion-icon>
+
+      <span class="text-sm font-medium"> New category </span>
+    </button>
+  </div>
+
+  <!-- MODAL -->
+  <app-categorie-create-modal
+    [isCreateCategoryOpen]="(isCreateModalOpen$ | async)!"
+    (categoryClosed)="closeCreateModal()"
+    [categoryToEdit]="selectedCategoryToEdit"
+  />
+</ion-content>

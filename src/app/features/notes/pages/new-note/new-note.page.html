@@ -1,0 +1,75 @@
+<ion-content fullscreen="true" class="ion-no-padding text-white">
+  <div class="flex flex-col min-h-full">
+    <app-topbar-notes [isBack]="true" title="New Task" />
+
+    <div class="px-5 md:px-8 py-6 max-w-6xl w-full mx-auto">
+      <!-- FORM -->
+      <form [formGroup]="form" class="flex flex-col gap-6">
+        <!-- TITLE -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+          <label class="text-xs text-white/40">Title</label>
+
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="Task title"
+            class="w-full mt-2 p-3 rounded-xl bg-white/5 border border-white/10 text-white"
+          />
+
+          <p *ngIf="f.title.touched && f.title.invalid" class="text-xs text-red-400 mt-1">
+            Title is required (min 3 chars)
+          </p>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+          <label class="text-xs text-white/40">Description</label>
+
+          <textarea
+            rows="3"
+            formControlName="description"
+            class="w-full mt-2 p-3 rounded-xl bg-white/5 border border-white/10 text-white resize-none"
+          ></textarea>
+        </div>
+
+        <!-- CATEGORIES -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
+          <h3 class="text-sm font-semibold mb-4">Categories</h3>
+
+          <div class="flex gap-3 overflow-x-auto">
+            <div
+              *ngFor="let item of selectedCategories$ | async"
+              class="min-w-[160px] flex items-center gap-3 p-3 rounded-xl bg-indigo-500/10 border border-indigo-400/20"
+            >
+              <div
+                class="w-10 h-10 rounded-xl flex items-center justify-center"
+                [style.background]="item.color + '22'"
+              >
+                <ion-icon [name]="item.icon"></ion-icon>
+              </div>
+
+              <div class="flex flex-col">
+                <span class="text-sm text-white font-medium">{{ item.name }}</span>
+                <span class="text-xs text-white/40">
+                  {{ item.completedCount }}/{{ item.notesCount }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
+          <button
+            type="button"
+            (click)="createTask()"
+            [disabled]="form.invalid"
+            class="w-full py-3 rounded-xl bg-indigo-500 text-white disabled:opacity-40"
+          >
+            Create Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ion-content>

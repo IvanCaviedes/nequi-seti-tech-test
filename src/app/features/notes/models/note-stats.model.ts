@@ -1,7 +1,7 @@
 export interface NoteStats {
   total: number;
   active: number;
-  archived: number;
+  completed: number;
   deleted: number;
   favorites: number;
 }

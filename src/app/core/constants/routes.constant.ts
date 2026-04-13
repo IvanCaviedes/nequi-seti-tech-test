@@ -11,5 +11,7 @@ export const ROUTES = {
 
   APP: {
     ROOT: 'dashboard',
+    NEW: 'new',
+    CATEGORIES: 'categories',
   },
 } as const;
