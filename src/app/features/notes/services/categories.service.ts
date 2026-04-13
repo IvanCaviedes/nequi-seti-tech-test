@@ -13,6 +13,9 @@ export class CategoriesService {
   private categoriesSubject = new BehaviorSubject<Category[]>([]);
   categories$ = this.categoriesSubject.asObservable();
 
+  private selectedCategoriesSubject = new BehaviorSubject<Category[]>([]);
+  readonly selectedCategories$ = this.selectedCategoriesSubject.asObservable();
+
   constructor() {
     this.loadInitialCategories();
   }
@@ -22,12 +25,15 @@ export class CategoriesService {
     this.categoriesSubject.next(stored);
   }
 
-  add(name: string, color?: string): void {
+  add(name: string, color: string, icon: string): void {
     const newCategory: Category = {
       id: crypto.randomUUID(),
       name,
       color,
+      icon,
       createdAt: Date.now(),
+      updatedAt: Date.now(),
+      status: 'active',
     };
 
     const updated = [newCategory, ...this.categoriesSubject.value];
@@ -51,5 +57,31 @@ export class CategoriesService {
   private updateState(categories: Category[]): void {
     this.categoriesSubject.next(categories);
     this.storage.set(STORAGE_KEYS.CATEGORIES, categories);
+  }
+
+  selectedCategoryIds(): string[] {
+    return this.selectedCategoriesSubject.value.map((c) => c.id);
+  }
+
+  toggleCategory(category: Category): void {
+    const current = this.selectedCategoriesSubject.value;
+
+    const exists = current.some((c) => c.id === category.id);
+
+    if (exists) {
+      this.selectedCategoriesSubject.next(current.filter((c) => c.id !== category.id));
+    } else {
+      this.selectedCategoriesSubject.next([...current, category]);
+    }
+  }
+
+  removeSelectedCategory(id: string) {
+    this.selectedCategoriesSubject.next(
+      this.selectedCategoriesSubject.value.filter((c) => c.id !== id),
+    );
+  }
+
+  clearSelectedCategories() {
+    this.selectedCategoriesSubject.next([]);
   }
 }

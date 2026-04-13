@@ -85,7 +85,7 @@ export class AuthFacade {
             user: res.user,
           });
 
-          void this.router.navigateByUrl('/notes');
+          void this.router.navigateByUrl('/app/' + ROUTES.APP.ROOT);
         },
         error: (err: unknown) => {
           const errorMessage = err instanceof Error ? err.message : 'Register failed';
@@ -96,6 +96,31 @@ export class AuthFacade {
       });
   }
 
+  register(email: string, password: string) {
+    this.patch({ loading: true, error: null });
+
+    this.authService
+      .register(email, password)
+      .pipe(finalize(() => this.patch({ loading: false })))
+      .subscribe({
+        next: (res) => {
+          // 🔥 auto-login
+          this.setToken(res.token, true);
+
+          this.patch({
+            user: res.user,
+          });
+
+          void this.router.navigateByUrl('/app/' + ROUTES.APP.ROOT);
+        },
+        error: (err: unknown) => {
+          const errorMessage = err instanceof Error ? err.message : 'Register failed';
+          this.patch({
+            error: errorMessage,
+          });
+        },
+      });
+  }
   // =========================
   // LOGOUT
   // =========================

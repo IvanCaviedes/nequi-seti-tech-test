@@ -1,15 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, Input } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavController } from '@ionic/angular';
+import { IonIcon } from '@ionic/angular/standalone';
 import { BehaviorSubject, interval } from 'rxjs';
+
+import { ROUTES } from 'src/app/core/constants/routes.constant';
 
 @Component({
   selector: 'app-topbar-notes',
   templateUrl: './topbar.component.html',
-  imports: [CommonModule],
+  imports: [IonIcon, CommonModule],
 })
 export class TopBarComponent {
   private destroyRef = inject(DestroyRef);
+  private navCtrl = inject(NavController);
+
+  @Input() isBack = false;
+  @Input() title = 'Dashboard';
+  @Input() showAction = true;
 
   private baseMessages = [
     'Let’s get things done ⚡',
@@ -53,5 +62,13 @@ export class TopBarComponent {
 
       this.animating = false;
     }, 250);
+  }
+
+  goToCreate() {
+    void this.navCtrl.navigateForward('/app/' + ROUTES.APP.CATEGORIES);
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 }

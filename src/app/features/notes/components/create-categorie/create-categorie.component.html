@@ -1,0 +1,144 @@
+<ion-modal [isOpen]="isCreateCategoryOpen" class="create-category-modal" [backdropDismiss]="false">
+  <ng-template>
+    <div class="flex flex-col h-full bg-[#0b0b0f] text-white">
+      <!-- HEADER -->
+      <div class="flex items-center justify-between px-5 py-4 border-b border-white/10">
+        <h2 class="text-sm font-semibold">
+          {{ isEditMode ? 'Edit category' : 'Create category' }}
+        </h2>
+
+        <button class="text-white/60 text-xs hover:text-white transition" (click)="closeModal()">
+          Cancel
+        </button>
+      </div>
+
+      <!-- FORM -->
+      <form [formGroup]="form" class="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-6">
+        <!-- ========================= -->
+        <!-- 👁 STICKY PREVIEW -->
+        <!-- ========================= -->
+        <div class="sticky top-0 z-10 pb-4 bg-[#0b0b0f]/80 backdrop-blur-xl">
+          <div
+            class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 shadow-[0_8px_20px_rgba(0,0,0,0.4)]"
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center"
+              [style.background]="form.value.color + '33'"
+            >
+              <ion-icon
+                [name]="form.value.icon || 'folder-outline'"
+                class="text-white text-xl"
+              ></ion-icon>
+            </div>
+
+            <div class="flex flex-col">
+              <span class="text-sm font-medium text-white">
+                {{ form.value.name || 'Category name' }}
+              </span>
+              <span class="text-xs text-white/40">Preview</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- 🔥 FORM WRAPPER -->
+        <!-- ========================= -->
+        <div class="max-w-md w-full mx-auto flex flex-col gap-6">
+          <!-- ========================= -->
+          <!-- ✏️ NAME -->
+          <!-- ========================= -->
+          <div class="flex flex-col gap-2 w-full">
+            <label class="text-xs text-white/40">Name</label>
+
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="e.g. Work, Gym..."
+              class="w-full p-3 rounded-xl bg-white/5 border text-white text-sm outline-none"
+              [class.border-red-500]="form.get('name')?.touched && form.get('name')?.invalid"
+              [class.border-white/10]="!(form.get('name')?.touched && form.get('name')?.invalid)"
+            />
+
+            <!-- ERRORS -->
+            <span
+              *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['required']"
+              class="text-xs text-red-400"
+            >
+              Name is required
+            </span>
+
+            <span
+              *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['minlength']"
+              class="text-xs text-red-400"
+            >
+              Minimum 3 characters
+            </span>
+
+            <span
+              *ngIf="form.get('name')?.touched && form.get('name')?.errors?.['maxlength']"
+              class="text-xs text-red-400"
+            >
+              Max 20 characters
+            </span>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 🎨 COLORS -->
+          <!-- ========================= -->
+          <div class="flex flex-col gap-2 w-full">
+            <label class="text-xs text-white/40">Color</label>
+
+            <div class="grid grid-cols-7 gap-3 w-full">
+              <div
+                *ngFor="let color of colors"
+                (click)="selectColor(color)"
+                class="aspect-square w-full rounded-xl cursor-pointer relative transition-all border hover:scale-105"
+                [style.background]="color"
+                [class.scale-110]="form.value.color === color"
+                [class.border-white]="form.value.color === color"
+                [class.border-white/10]="form.value.color !== color"
+              >
+                <div
+                  *ngIf="form.value.color === color"
+                  class="absolute inset-0 flex items-center justify-center"
+                >
+                  <ion-icon name="checkmark-outline" class="text-white text-sm"></ion-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 🎯 ICONS -->
+          <!-- ========================= -->
+          <div class="flex flex-col gap-2 w-full">
+            <label class="text-xs text-white/40">Icon</label>
+
+            <div class="grid grid-cols-6 gap-3 w-full">
+              <div
+                *ngFor="let icon of icons"
+                (click)="selectIcon(icon)"
+                class="aspect-square w-full rounded-xl border flex items-center justify-center cursor-pointer transition hover:bg-white/5"
+                [class.border-indigo-400]="form.value.icon === icon"
+                [class.border-white/10]="form.value.icon !== icon"
+              >
+                <ion-icon [name]="icon" class="text-white text-lg"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- FOOTER -->
+      <div class="p-5 border-t border-white/10">
+        <button
+          (click)="createCategory()"
+          [disabled]="form.invalid"
+          class="w-full py-3 rounded-xl bg-indigo-500 text-white text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {{ isEditMode ? 'Update category' : 'Create category' }}
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>

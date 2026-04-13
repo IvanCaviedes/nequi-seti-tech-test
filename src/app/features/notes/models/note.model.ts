@@ -1,4 +1,6 @@
-export type NoteStatus = 'active' | 'archived' | 'deleted';
+import type { Category } from './category.model';
+
+export type NoteStatus = 'active' | 'completed' | 'deleted' | 'all';
 
 export interface Note {
   id: string;
@@ -6,8 +8,7 @@ export interface Note {
   content: string;
 
   // Relaciones
-  categoryId?: string;
-  tagIds?: string[];
+  categoryIds?: string[];
 
   // Estado
   status: NoteStatus;
@@ -20,3 +21,7 @@ export interface Note {
   // Opcional (extra pro)
   reminderAt?: number;
 }
+
+export type NoteWithCategory = Note & {
+  categories: (Category | undefined)[];
+};

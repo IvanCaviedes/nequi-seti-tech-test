@@ -1,9 +1,8 @@
 import type { NoteStatus } from './note.model';
 
 export interface NoteFilters {
-  query?: string;
-  categoryId?: string;
-  status?: NoteStatus;
+  search: string;
+  categoryIds: string[];
+  status: NoteStatus;
   isFavorite?: boolean;
-  tags?: string[];
 }

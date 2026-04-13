@@ -56,7 +56,20 @@ export const routes: Routes = [
     children: [
       {
         path: ROUTES.APP.ROOT,
-        loadComponent: () => import('./features/notes/pages/note.page').then((m) => m.NotePage),
+        loadComponent: () =>
+          import('./features/notes/pages/note-list/note-list.page').then((m) => m.NotePage),
+      },
+      {
+        path: ROUTES.APP.CATEGORIES,
+        loadComponent: () =>
+          import('./features/notes/pages/select-categories/select-categories.page').then(
+            (m) => m.SelectCategoriesPage,
+          ),
+      },
+      {
+        path: ROUTES.APP.NEW,
+        loadComponent: () =>
+          import('./features/notes/pages/new-note/new-note.page').then((m) => m.NewNotePage),
       },
     ],
   },
