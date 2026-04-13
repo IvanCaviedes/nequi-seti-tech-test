@@ -32,10 +32,6 @@ export class AuthFacade {
     this.restoreSession();
   }
 
-  // =========================
-  // STATE HELPERS
-  // =========================
-
   private patch(partial: Partial<AuthState>) {
     this.state.next({
       ...this.state.value,
@@ -51,10 +47,6 @@ export class AuthFacade {
     }
   }
 
-  // =========================
-  // SESSION
-  // =========================
-
   private restoreSession() {
     const user = this.authService.getCurrentUser();
 
@@ -66,10 +58,6 @@ export class AuthFacade {
   isAuthenticated(): boolean {
     return !!this.state.value.user;
   }
-
-  // =========================
-  // LOGIN
-  // =========================
 
   login(email: string, password: string, remember: boolean) {
     this.patch({ loading: true, error: null });

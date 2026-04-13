@@ -40,21 +40,14 @@ export class NotesFecade {
   ]).pipe(
     map(([notes, categories, filters]) => {
       let result = notes;
+      // result = result.filter((n) => n.status !== 'deleted');
 
-      // ❌ deleted siempre fuera
-      result = result.filter((n) => n.status !== 'deleted');
-
-      // 🔎 status filter
       if (filters.status !== 'all') {
         result = result.filter((n) => n.status === filters.status);
       }
-
-      // ⭐ favorites
       if (filters.isFavorite) {
         result = result.filter((n) => n.isFavorite);
       }
-
-      // 🔍 search
       if (filters.search.trim()) {
         const q = filters.search.toLowerCase();
 
@@ -63,14 +56,12 @@ export class NotesFecade {
         );
       }
 
-      // 🏷 tags/categories
       if (filters.categoryIds.length) {
         result = result.filter((n) =>
           n.categoryIds?.some((id) => filters.categoryIds.includes(id)),
         );
       }
 
-      // 🔗 attach categories (como ya hacías antes)
       const categoryMap = new Map(categories.map((c) => [c.id, c]));
 
       return result.map((note) => ({

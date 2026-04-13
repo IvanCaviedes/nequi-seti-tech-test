@@ -38,10 +38,6 @@ export class AuthService {
     }
   }
 
-  // =========================
-  // STORAGE HELPERS
-  // =========================
-
   private getUsers(): User[] {
     return this.storage.get(STORAGE_KEYS.USERS) ?? [];
   }
@@ -50,17 +46,9 @@ export class AuthService {
     this.storage.set(STORAGE_KEYS.USERS, users);
   }
 
-  // =========================
-  // MOCK HASH (NO REAL)
-  // =========================
-
   private hash(password: string): string {
     return btoa(password); // ⚠️ solo para mock
   }
-
-  // =========================
-  // REGISTER
-  // =========================
 
   register(email: string, password: string): Observable<AuthResponse> {
     const users = this.getUsers();
@@ -89,10 +77,6 @@ export class AuthService {
     }).pipe(delay(800));
   }
 
-  // =========================
-  // LOGIN
-  // =========================
-
   login(email: string, password: string): Observable<AuthResponse> {
     const users = this.getUsers();
 
@@ -108,10 +92,6 @@ export class AuthService {
     }).pipe(delay(800));
   }
 
-  // =========================
-  // TOKEN (MOCK)
-  // =========================
-
   private generateToken(email: string): string {
     const payload = {
       email,
@@ -120,10 +100,6 @@ export class AuthService {
 
     return btoa(JSON.stringify(payload));
   }
-
-  // =========================
-  // SESSION HELPERS (OPTIONAL)
-  // =========================
 
   getCurrentUser(): { email: string } | null {
     const token =

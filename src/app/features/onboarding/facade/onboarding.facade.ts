@@ -37,10 +37,6 @@ export class OnboardingFacade {
     this.destroy$.complete();
   }
 
-  // =========================
-  // PROGRESS ENGINE
-  // =========================
-
   private startProgress() {
     const increment = 100 / (this.duration / this.tick);
 
@@ -59,10 +55,6 @@ export class OnboardingFacade {
         this.patch({ progress: nextProgress });
       });
   }
-
-  // =========================
-  // ACTIONS
-  // =========================
 
   next() {
     const state = this.stateSubject.value;
@@ -93,10 +85,6 @@ export class OnboardingFacade {
     this.storage.set(STORAGE_KEYS.ONBOARDING_KEY, 'true');
     void this.router.navigateByUrl(ROUTES.AUTH.ROOT + '/' + ROUTES.AUTH.LOGIN);
   }
-
-  // =========================
-  // STATE
-  // =========================
 
   private patch(partial: Partial<OnboardingState>) {
     const current = this.stateSubject.value;

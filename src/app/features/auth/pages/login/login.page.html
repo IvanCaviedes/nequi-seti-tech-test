@@ -1,6 +1,5 @@
 <ion-content class="ion-no-padding" fullscreen="true">
   <div class="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white">
-    <!-- LOGO / BRAND -->
     <div class="flex flex-col items-center mb-10 text-center">
       <div
         class="w-24 h-24 bg-zinc-900 rounded-3xl flex items-center justify-center shadow-xl border border-zinc-800 mb-5"
@@ -17,16 +16,13 @@
       <p class="text-zinc-500 mt-1">Tus ideas, organizadas.</p>
     </div>
 
-    <!-- CARD -->
     <div class="w-full max-w-md px-6">
       <div class="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-6 shadow-2xl">
-        <!-- HEADER -->
         <div class="text-center mb-6">
           <h2 class="text-2xl font-bold">Welcome back</h2>
           <p class="text-sm text-gray-400">Login to continue</p>
         </div>
 
-        <!-- FORM -->
         <div class="flex flex-col gap-3">
           <form
             [formGroup]="form"
@@ -34,7 +30,6 @@
             class="flex flex-col gap-3"
             *ngIf="state$ | async as state"
           >
-            <!-- EMAIL -->
             <div class="space-y-1">
               <ion-item
                 lines="none"
@@ -57,7 +52,6 @@
               </p>
             </div>
 
-            <!-- PASSWORD -->
             <ion-item
               lines="none"
               class="rounded-xl"
@@ -85,9 +79,7 @@
               {{ getError('password') }}
             </p>
 
-            <!-- REMEMBER -->
             <div class="flex items-center justify-between mt-4" (click)="toggleRemember()">
-              <!-- REMEMBER -->
               <label class="flex items-center gap-2 cursor-pointer">
                 <ion-checkbox
                   formControlName="remember"
@@ -98,7 +90,6 @@
               </label>
             </div>
 
-            <!-- ERROR GLOBAL -->
             <p *ngIf="state.error" class="text-red-400 text-sm mt-2 text-center">
               {{ state.error }}
             </p>
@@ -109,7 +100,6 @@
           </form>
         </div>
 
-        <!-- SWITCH -->
         <p class="text-xs text-center text-gray-400 mt-4">
           Don't have an account?
           <ion-router-link routerLink="/auth/register" class="text-white cursor-pointer">

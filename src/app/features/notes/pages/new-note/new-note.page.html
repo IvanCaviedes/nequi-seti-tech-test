@@ -1,11 +1,9 @@
 <ion-content fullscreen="true" class="ion-no-padding text-white">
-  <div class="flex flex-col min-h-full">
+  <div class="flex flex-col min-h-full bg-black">
     <app-topbar-notes [isBack]="true" title="New Task" />
 
     <div class="px-5 md:px-8 py-6 max-w-6xl w-full mx-auto">
-      <!-- FORM -->
       <form [formGroup]="form" class="flex flex-col gap-6">
-        <!-- TITLE -->
         <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
           <label class="text-xs text-white/40">Title</label>
 
@@ -21,7 +19,6 @@
           </p>
         </div>
 
-        <!-- DESCRIPTION -->
         <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
           <label class="text-xs text-white/40">Description</label>
 
@@ -32,7 +29,6 @@
           ></textarea>
         </div>
 
-        <!-- CATEGORIES -->
         <div class="p-5 rounded-2xl bg-white/5 border border-white/10">
           <h3 class="text-sm font-semibold mb-4">Categories</h3>
 
@@ -58,7 +54,6 @@
           </div>
         </div>
 
-        <!-- CTA -->
         <div class="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-400/20">
           <button
             type="button"

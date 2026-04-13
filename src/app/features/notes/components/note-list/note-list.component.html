@@ -1,11 +1,9 @@
 <ng-container *ngIf="notes.length > 0; else emptyState">
   <ion-item-sliding *ngFor="let note of notes">
-    <!-- OPTIONS -->
     <ion-item-options side="end" *ngIf="note.status === 'active'">
       <ion-item-option color="danger" (click)="deleteTask(note)">Delete</ion-item-option>
     </ion-item-options>
 
-    <!-- CARD -->
     <ion-item
       lines="none"
       style="--background: transparent"
@@ -19,9 +17,7 @@
       "
     >
       <div class="flex justify-between w-full items-center p-2">
-        <!-- LEFT -->
         <div class="flex flex-col gap-1">
-          <!-- TITLE -->
           <div
             class="font-semibold flex items-center gap-2 transition"
             [ngClass]="
@@ -32,7 +28,6 @@
           >
             📌 {{ note.title }}
 
-            <!-- FAVORITE -->
             <span
               *ngIf="note.isFavorite"
               class="text-[10px] px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300"
@@ -40,7 +35,6 @@
               ⭐ Favorite
             </span>
 
-            <!-- COMPLETED BADGE -->
             <span
               *ngIf="note.status === 'completed'"
               class="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-300"
@@ -49,10 +43,8 @@
             </span>
           </div>
 
-          <!-- SUBTITLE -->
           <div class="text-xs text-white/50">{{ note.status }} • Focus session</div>
 
-          <!-- TAGS -->
           <div class="flex gap-2 mt-1">
             <span
               *ngFor="let tag of note.categories"
@@ -63,9 +55,7 @@
           </div>
         </div>
 
-        <!-- RIGHT ACTIONS -->
         <div class="flex items-center gap-2" *ngIf="note.status !== 'deleted'">
-          <!-- ⭐ FAVORITE -->
           <div
             class="w-6 h-6 rounded-lg border flex items-center justify-center cursor-pointer transition"
             (click)="toggleFavoriteNote(note.id)"
@@ -78,7 +68,6 @@
             <ion-icon [name]="note.isFavorite ? 'star' : 'star-outline'" class="text-sm"></ion-icon>
           </div>
 
-          <!-- ✔ COMPLETE / RESTORE -->
           <div
             class="w-6 h-6 rounded-lg border flex items-center justify-center cursor-pointer transition"
             (click)="toggleComplete(note.id)"
@@ -101,9 +90,8 @@
 
 <ng-template #emptyState>
   <div class="flex flex-col items-center justify-center text-center py-16 px-6">
-    <!-- ICON -->
     <div class="text-5xl mb-4 opacity-70">📝</div>
-    <!-- TITLE -->
+
     <h2 class="text-xl font-semibold mb-2">No notes yet</h2>
     <p class="text-sm text-white/50 max-w-sm">
       Start organizing your day. Create your first note and boost your productivity 🚀
