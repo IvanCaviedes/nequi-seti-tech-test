@@ -109,9 +109,6 @@ export class AuthFacade {
         },
       });
   }
-  // =========================
-  // LOGOUT
-  // =========================
 
   logout() {
     this.authService.logout();

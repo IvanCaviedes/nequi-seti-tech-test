@@ -9,3 +9,9 @@ import {
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+
+// Setup global Ionic icons to prevent warnings
+import { registerIcons } from './app/core/icons/icon.registry';
+beforeAll(() => {
+  registerIcons();
+});

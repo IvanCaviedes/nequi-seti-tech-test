@@ -57,6 +57,90 @@ docker-compose up --build
 
 ---
 
+# 📱 Ejecución en dispositivos móviles (Android / iOS)
+
+Este proyecto usa **Ionic + Capacitor** para compilar y ejecutar la aplicación en dispositivos móviles o emuladores.
+
+---
+
+## 🤖 Android
+
+### Requisitos previos
+
+- Android Studio instalado
+- SDK configurado
+- Java instalado
+
+### Pasos para ejecutar
+
+### 1. Construir la aplicación web
+
+```bash
+ionic build
+```
+
+### 2. Sincronizar con Android
+
+```bash
+npx cap sync android
+```
+
+### 3. Abrir proyecto en Android Studio
+
+```bash
+npx cap open android
+```
+
+### 4. Ejecutar
+
+- Selecciona un emulador o dispositivo físico
+- Presiona ▶ Run en Android Studio
+
+---
+
+## 🍏 iOS (solo macOS)
+
+### Requisitos previos
+
+- macOS
+- Xcode instalado
+- CocoaPods instalado
+
+### Pasos para ejecutar
+
+### 1. Construir la aplicación web
+
+```bash
+ionic build
+```
+
+### 2. Sincronizar con iOS
+
+```bash
+npx cap sync ios
+```
+
+### 3. Instalar dependencias nativas
+
+```bash
+cd ios/App
+pod install
+cd ../..
+```
+
+### 4. Abrir proyecto en Xcode
+
+```bash
+npx cap open ios
+```
+
+### 5. Ejecutar
+
+- Selecciona simulador o dispositivo físico
+- Presiona ▶ Run en Xcode
+
+---
+
 ## 🧪 Linting
 
 Ejecutar análisis de código:
@@ -115,16 +199,16 @@ Se implementaron herramientas para asegurar calidad del código:
 
 ## 🧠 Decisiones técnicas
 
-- Uso de `pnpm` para mejor rendimiento y manejo de dependencias
+- Uso de `pnpm` para mejor rendimiento
 - Docker para facilitar ejecución en cualquier entorno
-- LoggerService para abstracción de logs y futura integración con herramientas externas
+- LoggerService para abstracción de logs
 - Arquitectura escalable basada en separación por capas
 
 ---
 
 ## 🚀 Posibles mejoras
 
-- Persistencia con backend (API)
+- Backend con API real
 - Autenticación de usuarios
 - Sincronización en la nube
 - Tests unitarios adicionales
@@ -135,5 +219,3 @@ Se implementaron herramientas para asegurar calidad del código:
 ## 👨‍💻 Autor
 
 Desarrollado por **Ivan Caviedes**
-
----

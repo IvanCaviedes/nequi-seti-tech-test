@@ -23,7 +23,6 @@ export class CategorieCreateModalComponent implements OnChanges {
       });
     }
   }
-
   @Input() isCreateCategoryOpen = false;
   @Output() categoryClosed = new EventEmitter<void>();
   @Input() categoryToEdit?: CategoryWithCount;
