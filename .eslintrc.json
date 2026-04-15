@@ -1,6 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*", "node_modules/"],
+  "ignorePatterns": [
+    "projects/**/*",
+    "node_modules/",
+    "android/",
+    "ios/",
+    "**/__tests__/**",
+    "**/tests/**"
+  ],
   "overrides": [
     {
       "files": ["*.ts"],

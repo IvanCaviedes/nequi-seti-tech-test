@@ -39,6 +39,8 @@ import {
   trashOutline,
   refresh,
   createOutline,
+  searchOutline,
+  briefcase,
 } from 'ionicons/icons';
 
 export function registerIcons() {
@@ -83,5 +85,7 @@ export function registerIcons() {
     'trash-outline': trashOutline,
     refresh: refresh,
     'create-outline': createOutline,
+    'search-outline': searchOutline,
+    briefcase: briefcase,
   });
 }
