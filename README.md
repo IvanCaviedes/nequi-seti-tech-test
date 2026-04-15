@@ -141,6 +141,33 @@ npx cap open ios
 
 ---
 
+## 🧪 Testing Automático
+
+El proyecto cuenta con una robusta suite de pruebas unitarias que cubren tanto la capa lógica como la capa de interfaces visuales con más de **180 tests** exitosos, asegurando estabilidad y no regresión.
+
+### Pruebas Implementadas
+
+1. **Pruebas de Lógica de Negocio (Core):**
+   - Cobertura profunda a **Servicios** (Storage, Notas, Autenticación, Remote Config).
+   - Pruebas reactivas a **Facades** usando `fakeAsync` y `tick` para validar estados en el tiempo.
+   - Aserciones en **Guards** de Angular (Routing condicional).
+
+2. **Pruebas de Interfaz y Gráficos (UI Testing):**
+   - *Smart Components* encapsulados (Pages) mocking las inyecciones de dependencias globales y observando comportamientos del DOM y flujos reactivos del estado.
+   - *Smoke Tests* a +17 Dumb Components para comprobar la integridad del inyector Angular `TestBed`.
+
+### Ejecución de Pruebas
+
+Para correr las pruebas localmente en interfaz por consola sin observar navegador físico (Headless):
+
+```bash
+pnpm test --watch=false --browsers=ChromeHeadless --code-coverage
+```
+
+Tras la ejecución, verás un reporte de **Code Coverage** detallando el porcentaje de control (~80%).
+
+---
+
 ## 🧪 Linting
 
 Ejecutar análisis de código:
@@ -166,6 +193,7 @@ src/app/
   core/        # servicios globales (logger, storage, etc.)
   shared/      # componentes reutilizables
   features/    # módulos por dominio (notes)
+  __tests__/   # Aislamiento de suites de prueba
 ```
 
 ### Principios aplicados:
@@ -175,6 +203,7 @@ src/app/
 - Uso de servicios para lógica de negocio
 - Tipado estricto con TypeScript
 - Programación reactiva con RxJS
+- Patrón Testing Modular y Mocking seguro
 
 ---
 
@@ -209,9 +238,7 @@ Se implementaron herramientas para asegurar calidad del código:
 ## 🚀 Posibles mejoras
 
 - Backend con API real
-- Autenticación de usuarios
 - Sincronización en la nube
-- Tests unitarios adicionales
 - Manejo global de errores
 
 ---
